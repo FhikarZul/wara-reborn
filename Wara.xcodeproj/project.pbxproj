@@ -10,9 +10,22 @@
 		90E2EC112DFBC99B00C31B38 /* Wara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		909A17B82E010F0100F653AB /* Exceptions for "Wara" folder in "Wara" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 90E2EC102DFBC99B00C31B38 /* Wara */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		90E2EC132DFBC99B00C31B38 /* Wara */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				909A17B82E010F0100F653AB /* Exceptions for "Wara" folder in "Wara" target */,
+			);
 			path = Wara;
 			sourceTree = "<group>";
 		};
@@ -256,8 +269,11 @@
 				DEVELOPMENT_TEAM = 63WZLDK2RP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wara/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Wara'";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to access your camera to scan ingredients label";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to access your library for importing photos to scanning ingredients";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -292,8 +308,11 @@
 				DEVELOPMENT_TEAM = 63WZLDK2RP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wara/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Wara'";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to access your camera to scan ingredients label";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to access your library for importing photos to scanning ingredients";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
