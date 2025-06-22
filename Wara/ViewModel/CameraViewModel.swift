@@ -16,11 +16,14 @@ class CameraViewModel: ObservableObject {
         case processing
         case success(DetectionResult)
         case error(String)
-        // case detectionFailed dihapus
     }
     
     @Published var scanState: ScanState = .idle
     @Published var isTorchOn: Bool = false
+    
+    // MARK: - PERUBAHAN: Saluran perintah untuk siklus hidup kamera
+    let startCameraSession = PassthroughSubject<Void, Never>()
+    let stopCameraSession = PassthroughSubject<Void, Never>()
     
     let torchToggleAction = PassthroughSubject<Void, Never>()
     let captureAction = PassthroughSubject<Void, Never>()
@@ -33,20 +36,16 @@ class CameraViewModel: ObservableObject {
         self.detectionService = DetectionService(modelContext: modelContext)
     }
     
-    // Ini sekarang menjadi satu-satunya fungsi untuk memproses gambar,
-    // baik dari kamera maupun galeri.
     func processImage(_ image: UIImage) {
         scanState = .processing
         
         Task {
+            // Berhenti menerima frame kamera SEBELUM kita mulai analisis berat
+            stopCameraSession.send()
+            
             do {
-                // 1. Lakukan OCR pada seluruh gambar
                 let extractedText = try await ocrService.extractKoreanText(from: image)
-                
-                // 2. Kirim teks hasil OCR ke service untuk dianalisis
-                // Service akan menangani pengecekan kata kunci "원재료"
                 let result = await detectionService.analyze(text: extractedText)
-                
                 self.scanState = .success(result)
             } catch let ocrError as OCRError {
                 self.scanState = .error(mapOcrErrorToString(ocrError))
@@ -57,6 +56,8 @@ class CameraViewModel: ObservableObject {
     }
     
     func resetState() {
+        // Nyalakan kembali kamera SEBELUM UI kembali ke mode scan
+        startCameraSession.send()
         scanState = .idle
     }
     

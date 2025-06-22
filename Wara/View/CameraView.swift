@@ -37,6 +37,8 @@ struct CameraView: UIViewRepresentable {
         var captureSession: AVCaptureSession?
         private let photoOutput = AVCapturePhotoOutput()
         private var cancellables = Set<AnyCancellable>()
+        // Antrian khusus untuk mengelola sesi agar tidak memblokir thread lain
+        private let sessionQueue = DispatchQueue(label: "sessionQueue")
         
         init(viewModel: CameraViewModel) {
             self.viewModel = viewModel
@@ -44,11 +46,28 @@ struct CameraView: UIViewRepresentable {
             Task { @MainActor in
                 viewModel.captureAction.sink { [weak self] in self?.capturePhoto() }.store(in: &cancellables)
                 viewModel.torchToggleAction.sink { [weak self] in self?.toggleTorch() }.store(in: &cancellables)
+                
+                // MARK: - PERUBAHAN: Langganan ke perintah start/stop
+                viewModel.startCameraSession
+                    .sink { [weak self] in
+                        self?.sessionQueue.async {
+                            self?.captureSession?.startRunning()
+                        }
+                    }
+                    .store(in: &cancellables)
+                
+                viewModel.stopCameraSession
+                    .sink { [weak self] in
+                        self?.sessionQueue.async {
+                            self?.captureSession?.stopRunning()
+                        }
+                    }
+                    .store(in: &cancellables)
             }
         }
         
         func startSession() {
-            DispatchQueue.global(qos: .userInitiated).async {
+            sessionQueue.async {
                 let session = AVCaptureSession()
                 self.captureSession = session
                 session.beginConfiguration()
@@ -58,7 +77,9 @@ struct CameraView: UIViewRepresentable {
                       session.canAddInput(videoDeviceInput) else { return }
                 session.addInput(videoDeviceInput)
                 
-                if session.canAddOutput(self.photoOutput) { session.addOutput(self.photoOutput) }
+                if session.canAddOutput(self.photoOutput) {
+                    session.addOutput(self.photoOutput)
+                }
                 
                 session.sessionPreset = .photo
                 session.commitConfiguration()
@@ -75,11 +96,9 @@ struct CameraView: UIViewRepresentable {
         func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
             guard error == nil, let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData) else { return }
             Task { @MainActor in
-                // PERUBAHAN DI SINI: Memanggil nama fungsi yang benar
                 self.viewModel.processImage(image)
             }
         }
-        
         func toggleTorch() {
             guard let videoDevice = AVCaptureDevice.default(for: .video), videoDevice.hasTorch else { return }
             

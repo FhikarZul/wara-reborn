@@ -90,6 +90,7 @@ struct MainView: View {
                    let image = UIImage(data: data) {
                     // MARK: - PERBAIKAN 2: Memanggil nama fungsi yang benar
                     viewModel.processImage(image)
+                    selectedPhotoItem = nil
                 }
             }
         }
