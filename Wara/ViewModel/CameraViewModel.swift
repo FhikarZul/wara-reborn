@@ -5,9 +5,9 @@
 //  Created by Immanuel Sitepu on 22/06/25.
 //
 
-import SwiftUI
-import SwiftData
 import Combine
+import SwiftData
+import SwiftUI
 
 @MainActor
 class CameraViewModel: ObservableObject {
@@ -19,17 +19,20 @@ class CameraViewModel: ObservableObject {
         case error(String)
     }
     
-    // Manager & Services
+    // MARK: - Manager & Services
     let cameraManager: CameraManager?
     private let ocrService: OCRService
     private let detectionService: DetectionService
     
-    // States
+    // MARK: - States
     @Published var scanState: ScanState = .idle
-    @Published var isTorchOn: Bool = false
     
+    // MARK: - Computed Value
+    var isTorchOn: Bool {
+        self.cameraManager?.device?.isTorchActive ?? false
+    }
     
-    // Methods
+    // MARK: - Initialization
     init(modelContext: ModelContext) {
         self.ocrService = OCRService()
         self.detectionService = DetectionService(modelContext: modelContext)
@@ -45,9 +48,9 @@ class CameraViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Methods
     func capture() {
-        // Early exit if state are not idle
-        guard case ScanState.idle = scanState else { return }
+        guard case ScanState.idle = scanState else { return } // Early exit if state are not idle
         
         scanState = .capturing
         
@@ -55,27 +58,31 @@ class CameraViewModel: ObservableObject {
             print("Camera not available")
             return
         }
-
+        
         cameraManager.capture()
     }
     
     func processImage(_ image: UIImage) {
         scanState = .processing
-
+        
         Task {
             // Berhenti menerima frame kamera SEBELUM mwmulai analisis
-            if(cameraManager != nil) {
+            if cameraManager != nil {
                 cameraManager!.stopSession()
             }
             
             do {
-                let extractedText = try await ocrService.extractKoreanText(from: image)
+                let extractedText = try await ocrService.extractKoreanText(
+                    from: image
+                )
                 let result = await detectionService.analyze(text: extractedText)
                 self.scanState = .success(result)
             } catch let ocrError as OCRError {
                 self.scanState = .error(mapOcrErrorToString(ocrError))
             } catch {
-                self.scanState = .error("Terjadi kesalahan tidak dikenal: \(error.localizedDescription)")
+                self.scanState = .error(
+                    "Terjadi kesalahan tidak dikenal: \(error.localizedDescription)"
+                )
             }
         }
     }
@@ -86,9 +93,8 @@ class CameraViewModel: ObservableObject {
     }
     
     func toggleTorch() {
-        guard let cameraManager = self.cameraManager else { return } // Early exit if camera manager not found
+        guard let cameraManager = self.cameraManager else { return }  // Early exit if camera manager not found
         cameraManager.toggleTorch()
-        self.isTorchOn = !self.isTorchOn
     }
     
     private func mapOcrErrorToString(_ error: OCRError) -> String {
