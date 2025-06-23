@@ -21,7 +21,6 @@ class CameraViewModel: ObservableObject {
     @Published var scanState: ScanState = .idle
     @Published var isTorchOn: Bool = false
     
-    // MARK: - PERUBAHAN: Saluran perintah untuk siklus hidup kamera
     let startCameraSession = PassthroughSubject<Void, Never>()
     let stopCameraSession = PassthroughSubject<Void, Never>()
     
@@ -40,7 +39,7 @@ class CameraViewModel: ObservableObject {
         scanState = .processing
         
         Task {
-            // Berhenti menerima frame kamera SEBELUM kita mulai analisis berat
+            // Berhenti menerima frame kamera SEBELUM mwmulai analisis
             stopCameraSession.send()
             
             do {

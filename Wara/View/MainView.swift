@@ -79,9 +79,7 @@ struct MainView: View {
                 ResultView(result: result, onDismiss: viewModel.resetState)
             case .error(let message):
                 ErrorView(message: message, onDismiss: viewModel.resetState)
-            // MARK: - PERBAIKAN 1: Baris di bawah ini dihapus
-            // case .detectionFailed(let message):
-            //     ErrorView(message: message, onDismiss: viewModel.resetState)
+
             }
         }
         .onChange(of: selectedPhotoItem) {

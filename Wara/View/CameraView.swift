@@ -37,7 +37,6 @@ struct CameraView: UIViewRepresentable {
         var captureSession: AVCaptureSession?
         private let photoOutput = AVCapturePhotoOutput()
         private var cancellables = Set<AnyCancellable>()
-        // Antrian khusus untuk mengelola sesi agar tidak memblokir thread lain
         private let sessionQueue = DispatchQueue(label: "sessionQueue")
         
         init(viewModel: CameraViewModel) {
@@ -47,7 +46,6 @@ struct CameraView: UIViewRepresentable {
                 viewModel.captureAction.sink { [weak self] in self?.capturePhoto() }.store(in: &cancellables)
                 viewModel.torchToggleAction.sink { [weak self] in self?.toggleTorch() }.store(in: &cancellables)
                 
-                // MARK: - PERUBAHAN: Langganan ke perintah start/stop
                 viewModel.startCameraSession
                     .sink { [weak self] in
                         self?.sessionQueue.async {

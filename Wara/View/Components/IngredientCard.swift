@@ -22,6 +22,7 @@ struct IngredientCard: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(ingredient.koreanName).font(.headline)
+                Text(ingredient.pronunciation).font(.caption)
                 Spacer()
                 Text(ingredient.category.rawValue.capitalized).font(
                     .caption.bold()

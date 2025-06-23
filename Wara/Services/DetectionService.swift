@@ -8,19 +8,6 @@
 import Foundation
 import SwiftData
 
-struct DetectionResult {
-    enum Status {
-        case aman
-        case raguRagu
-        case tidakAman
-        case ingredientsNotFound
-    }
-    
-    let status: Status
-    let foundIngredients: [Ingredient]
-    let originalText: String
-}
-
 class DetectionService {
     private let modelContext: ModelContext
     

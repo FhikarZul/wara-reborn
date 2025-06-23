@@ -14,8 +14,6 @@ struct ResultView: View {
     
     private var sortedIngredients: [Ingredient] {
         result.foundIngredients.sorted {
-            // Urutkan berdasarkan skor kategori, dari skor terkecil (paling kritis)
-            // ke terbesar (paling aman).
             order(for: $0.category) < order(for: $1.category)
         }
     }
@@ -24,11 +22,11 @@ struct ResultView: View {
     private func order(for category: IngredientCategory) -> Int {
         switch category {
         case .tidakAman:
-            return 0 // Prioritas tertinggi
+            return 0
         case .raguRagu:
-            return 1 // Prioritas menengah
+            return 1
         case .aman:
-            return 2 // Prioritas terendah
+            return 2
         }
     }
 
@@ -72,7 +70,7 @@ struct ResultView: View {
                             Group {
                                 switch result.status {
                                 case .aman where result.foundIngredients.isEmpty:
-                                    Text("Tidak ditemukan bahan kritis dari database pada gambar. Selalu periksa kembali untuk memastikan.")
+                                    Text("Tidak ditemukan bahan dari database pada gambar. Selalu periksa kembali untuk memastikan.")
                                     
                                 case .ingredientsNotFound:
                                     Text("Aplikasi tidak dapat menemukan kata kunci '원재료' (Bahan). Pastikan Anda memindai bagian daftar bahan pada kemasan.")
@@ -80,7 +78,6 @@ struct ResultView: View {
                                 default:
                                     if !result.foundIngredients.isEmpty {
                                         Text("Bahan Dikenali:").font(.headline)
-                                        // MARK: - PERUBAHAN: Gunakan 'sortedIngredients'
                                         ForEach(sortedIngredients, id: \.koreanName) { item in
                                             IngredientCard(ingredient: item)
                                         }
@@ -100,7 +97,7 @@ struct ResultView: View {
                         .padding([.horizontal, .bottom])
                 }
                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.75)
-                .background(Color(.systemBackground)).cornerRadius(20).shadow(radius: 10)
+                .background(Color(.systemBackground)).cornerRadius(10).shadow(radius: 10)
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
             .background(Color.black.opacity(0.4).ignoresSafeArea())
