@@ -14,16 +14,21 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
         case addOutputFailed
     }
 
+    // MARK: - Properties
     let session: AVCaptureSession
-    let photoOutput: AVCapturePhotoOutput
+    let photoOutputSession: AVCapturePhotoOutput
+    
+    // MARK: - Callbacks
     var onImageCaptured: (UIImage) -> Void =  { _ in }
     
+    // MARK: - Initialization
     override init() {
         self.session = AVCaptureSession()
-        self.photoOutput = AVCapturePhotoOutput()
+        self.photoOutputSession = AVCapturePhotoOutput()
     }
-    
-    func setup() throws {
+
+    // MARK: - Methods
+    public func setup() throws {
         // 1. Find available camera
         guard let camera = AVCaptureDevice.default(for: .video) else {
             print("Device not found")
@@ -41,29 +46,30 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
         }
         
         // 3. Add output device into session
-        if(session.canAddOutput(self.photoOutput)) {
-            session.addOutput(self.photoOutput)
+        if(session.canAddOutput(self.photoOutputSession)) {
+            session.addOutput(self.photoOutputSession)
         } else {
             print("Can't add camera output")
             throw CameraError.addOutputFailed
         }
     }
     
-    func startSession() {
+    public func startSession() {
         Task {
             self.session.startRunning()
         }
     }
 
-    func stopSession() {
+    public func stopSession() {
         self.session.stopRunning()
     }
     
-    func capture() {
+    public func capture() {
         let setting = AVCapturePhotoSettings()
-        self.photoOutput.capturePhoto(with: setting, delegate: self)
+        self.photoOutputSession.capturePhoto(with: setting, delegate: self)
     }
     
+    // MARK: - Delegates
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else {
             print("Failed to get image data")
