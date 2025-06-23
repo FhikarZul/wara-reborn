@@ -45,7 +45,7 @@ struct MainView: View {
                     
                     // Tombol Capture
                     Button(action: {
-                        viewModel.captureAction.send()
+                        viewModel.capture()
                     }) {
                         ZStack {
                             Circle()
@@ -72,6 +72,8 @@ struct MainView: View {
             // Lapisan untuk menampilkan hasil atau status
             switch viewModel.scanState {
             case .idle:
+                EmptyView()
+            case .capturing:
                 EmptyView()
             case .processing:
                 ProcessingView()
