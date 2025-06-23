@@ -30,9 +30,6 @@ class CameraViewModel: ObservableObject {
     
     
     // Methods
-    let captureAction = PassthroughSubject<Void, Never>()
-    let torchToggleAction = PassthroughSubject<Void, Never>()
-    
     init(modelContext: ModelContext) {
         self.ocrService = OCRService()
         self.detectionService = DetectionService(modelContext: modelContext)
@@ -86,6 +83,12 @@ class CameraViewModel: ObservableObject {
     func resetState() {
         cameraManager?.startSession()
         scanState = .idle
+    }
+    
+    func toggleTorch() {
+        guard let cameraManager = self.cameraManager else { return } // Early exit if camera manager not found
+        cameraManager.toggleTorch()
+        self.isTorchOn = !self.isTorchOn
     }
     
     private func mapOcrErrorToString(_ error: OCRError) -> String {

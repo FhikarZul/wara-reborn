@@ -18,6 +18,8 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
     let session: AVCaptureSession
     let photoOutputSession: AVCapturePhotoOutput
     
+    var device: AVCaptureDevice? = nil
+
     // MARK: - Callbacks
     var onImageCaptured: (UIImage) -> Void =  { _ in }
     
@@ -34,6 +36,8 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
             print("Device not found")
             throw CameraError.deviceNotFound
         }
+        
+        self.device = camera
         
         // 2. Add input device into session
         let inputDevice = try AVCaptureDeviceInput(device: camera)
@@ -62,6 +66,26 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
 
     public func stopSession() {
         self.session.stopRunning()
+    }
+    
+    public func toggleTorch() {
+        guard let device = self.device else { return } // Early exit if device not found
+        
+        do {
+            if(device.hasTorch && device.isTorchAvailable) {
+                if(device.isTorchActive) {
+                    try device.lockForConfiguration()
+                    device.torchMode = .off
+                    device.unlockForConfiguration()
+                } else {
+                    try device.lockForConfiguration()
+                    device.torchMode = .on
+                    device.unlockForConfiguration()
+                }
+            }
+        } catch {
+            print("Error toggling torch: \(error)")
+        }
     }
     
     public func capture() {

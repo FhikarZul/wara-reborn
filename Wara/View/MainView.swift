@@ -58,9 +58,7 @@ struct MainView: View {
                     }
                     
                     // Tombol Senter
-                    Button(action: {
-                        viewModel.torchToggleAction.send()
-                    }) {
+                    Button(action: viewModel.toggleTorch) {
                         Image(systemName: viewModel.isTorchOn ? "bolt.fill" : "bolt.slash.fill")
                             .font(.title)
                             .foregroundColor(.white)
