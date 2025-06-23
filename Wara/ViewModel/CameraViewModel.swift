@@ -26,11 +26,7 @@ class CameraViewModel: ObservableObject {
     
     // MARK: - States
     @Published var scanState: ScanState = .idle
-    
-    // MARK: - Computed Value
-    var isTorchOn: Bool {
-        self.cameraManager?.device?.isTorchActive ?? false
-    }
+    @Published var isTorchOn: Bool = false
     
     // MARK: - Initialization
     init(modelContext: ModelContext) {
@@ -95,8 +91,9 @@ class CameraViewModel: ObservableObject {
     func toggleTorch() {
         guard let cameraManager = self.cameraManager else { return }  // Early exit if camera manager not found
         cameraManager.toggleTorch()
+        isTorchOn = !isTorchOn
     }
-    
+
     private func mapOcrErrorToString(_ error: OCRError) -> String {
         switch error {
         case .imageProcessingFailed:
