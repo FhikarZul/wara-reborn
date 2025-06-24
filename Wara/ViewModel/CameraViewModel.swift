@@ -89,9 +89,13 @@ class CameraViewModel: ObservableObject {
     func processFrame(_ sampleBuffer: CMSampleBuffer) {
         do {
             let extractedText = try self.ocrService.extractKoreanText(from: sampleBuffer)
-            self.isIngredientLabelDectected = self.detectionService.hasIngredientsLabel(in: extractedText)
+            let hasIngredients = self.detectionService.hasIngredientsLabel(in: extractedText)
+            
+            // Update UI on main thread
+            DispatchQueue.main.async {
+                self.isIngredientLabelDectected = hasIngredients
+            }
         } catch {
-            print("Error processing frame")
         }
     }
     

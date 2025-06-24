@@ -34,7 +34,24 @@ class DetectionService {
         }
         
         // Jika kata kunci ditemukan, analisis seluruh teks
-        let cleanedText = text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
+        var cleanedText = text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
+        
+        let pattern = "(원재료|원재료명)(.*?)(?=제품명|식품유형|제조원|유통전문|소비기한|원재료명|포장재질|품목보고번호|$)"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators])
+            let nsrange = NSRange(text.startIndex..<text.endIndex, in: text)
+            
+            if let match = regex.firstMatch(in: text, options: [], range: nsrange) {
+                if let range = Range(match.range(at: 2), in: text) {
+                    cleanedText = String(text[range])
+                }
+            } else {
+                print("No match found.")
+            }
+        } catch {
+            print("Invalid regex: \(error)")
+        }
         
         let descriptor = FetchDescriptor<Ingredient>()
         guard let allIngredients = try? modelContext.fetch(descriptor) else {
