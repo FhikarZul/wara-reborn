@@ -91,6 +91,12 @@ class CameraViewModel: ObservableObject {
             let extractedText = try self.ocrService.extractKoreanText(from: sampleBuffer)
             let hasIngredients = self.detectionService.hasIngredientsLabel(in: extractedText)
             
+            if(hasIngredients) {
+                // Trigger soft haptic
+                let softImpact = UIImpactFeedbackGenerator(style: .soft)
+                softImpact.impactOccurred()
+            }
+            
             // Update UI on main thread
             DispatchQueue.main.async {
                 self.isIngredientLabelDectected = hasIngredients
