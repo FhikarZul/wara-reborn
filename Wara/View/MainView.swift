@@ -19,21 +19,31 @@ struct MainView: View {
     }
     
     var body: some View {
-      
         ZStack {
             CameraView(viewModel: viewModel)
                 .ignoresSafeArea()
-
+            
             VStack {
-                Spacer()
-                
-                Text(viewModel.isIngredientLabelDectected ? "Daftar bahan makanan ditemukan" : "Arahkan kamera ke daftar bahan makanan")
-                    .font(.caption)
-                    .foregroundColor(.white)
-                    .padding(8)
+                HStack {
+                    HStack {
+                        if(viewModel.isIngredientLabelDectected) {
+                            Image(systemName: "checkmark.circle.fill")
+                        }
+                        
+                        Text(viewModel.isIngredientLabelDectected ? "Label komposisi ditemukan" : "Yuk, pindai label komposisi")
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .foregroundColor(viewModel.isIngredientLabelDectected ? .green : .white)
                     .background(.black.opacity(0.6))
-                    .cornerRadius(10)
-                    .padding(.bottom, 8)
+                    .cornerRadius(40)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .transition(.scale)
+                    .id("detectionStatusText_" + (viewModel.isIngredientLabelDectected ? "detected" : "scanning"))
+                }.frame(height: 80)
+                
+                Spacer()
                 
                 HStack(alignment: .center, spacing: 60) {
                     // Tombol Impor Galeri
@@ -79,9 +89,11 @@ struct MainView: View {
                 ResultView(result: result, onDismiss: viewModel.resetState)
             case .error(let message):
                 ErrorView(message: message, onDismiss: viewModel.resetState)
-
+                
             }
         }
+        .animation(.bouncy, value: viewModel.isIngredientLabelDectected)
+        
         .onChange(of: selectedPhotoItem) {
             Task {
                 if let data = try? await selectedPhotoItem?.loadTransferable(type: Data.self),
