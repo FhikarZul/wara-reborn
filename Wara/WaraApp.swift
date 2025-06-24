@@ -11,10 +11,17 @@ import SwiftData
 @main
 struct WaraApp: App {
     let persistenceController = PersistenceController.shared
+    
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            // MARK: - PERUBAHAN: Logika untuk memilih tampilan awal
+            if hasCompletedOnboarding {
+                MainView()
+            } else {
+                OnboardingContainerView(hasCompletedOnboarding: $hasCompletedOnboarding)
+            }
         }
         .modelContainer(persistenceController.container)
     }
