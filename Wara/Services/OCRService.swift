@@ -23,7 +23,7 @@ class OCRService {
         request.recognitionLevel = .accurate
         request.recognitionLanguages = ["ko-KR"]
         
-        let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        let requestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .left)
         
         return try await withCheckedThrowingContinuation { continuation in
             do {
