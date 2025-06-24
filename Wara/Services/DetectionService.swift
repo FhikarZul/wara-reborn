@@ -11,16 +11,25 @@ import SwiftData
 class DetectionService {
     private let modelContext: ModelContext
     
+    // MARK: - Initialization
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
     
-    func analyze(text: String) async -> DetectionResult {
+    // MARK: - Methods
+    func hasIngredientsLabel(in text: String) -> Bool {
         // Kita bisa mencari kedua variasi untuk hasil yang lebih baik
         let keyword1 = "원재료" // Raw Materials
         let keyword2 = "원재료명" // Raw Material Name, sering digunakan juga
         
-        if !text.contains(keyword1) && !text.contains(keyword2) {
+        return text.contains(keyword1) || text.contains(keyword2)
+    }
+    
+    func analyzeIngredients(text: String) async -> DetectionResult {
+        // Check are the text contain ingredient keyword
+        let containsIngredientsLabel = hasIngredientsLabel(in: text)
+        
+        if (!containsIngredientsLabel) {
             return DetectionResult(status: .ingredientsNotFound, foundIngredients: [], originalText: text)
         }
         

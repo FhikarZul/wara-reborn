@@ -8,6 +8,7 @@
 import Combine
 import SwiftData
 import SwiftUI
+import AVFoundation
 
 @MainActor
 class CameraViewModel: ObservableObject {
@@ -27,6 +28,7 @@ class CameraViewModel: ObservableObject {
     // MARK: - States
     @Published var scanState: ScanState = .idle
     @Published var isTorchOn: Bool = false
+    @Published var isIngredientLabelDectected: Bool = false
     
     // MARK: - Initialization
     init(modelContext: ModelContext) {
@@ -39,6 +41,7 @@ class CameraViewModel: ObservableObject {
             self.cameraManager = cameraManager
             
             cameraManager.onImageCaptured = self.processImage
+            cameraManager.onFrameCaptured = self.processFrame
         } catch {
             self.cameraManager = nil
         }
@@ -71,7 +74,7 @@ class CameraViewModel: ObservableObject {
                 let extractedText = try await ocrService.extractKoreanText(
                     from: image
                 )
-                let result = await detectionService.analyze(text: extractedText)
+                let result = await detectionService.analyzeIngredients(text: extractedText)
                 self.scanState = .success(result)
             } catch let ocrError as OCRError {
                 self.scanState = .error(mapOcrErrorToString(ocrError))
@@ -80,6 +83,15 @@ class CameraViewModel: ObservableObject {
                     "Terjadi kesalahan tidak dikenal: \(error.localizedDescription)"
                 )
             }
+        }
+    }
+    
+    func processFrame(_ sampleBuffer: CMSampleBuffer) {
+        do {
+            let extractedText = try self.ocrService.extractKoreanText(from: sampleBuffer)
+            self.isIngredientLabelDectected = self.detectionService.hasIngredientsLabel(in: extractedText)
+        } catch {
+            print("Error processing frame")
         }
     }
     

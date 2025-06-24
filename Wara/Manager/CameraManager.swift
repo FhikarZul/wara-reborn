@@ -7,7 +7,7 @@
 import UIKit
 import AVFoundation
 
-class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
+class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     enum CameraError: Error {
         case deviceNotFound
         case addInputFailed
@@ -17,16 +17,19 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
     // MARK: - Properties
     let session: AVCaptureSession
     let photoOutputSession: AVCapturePhotoOutput
+    let videoOutputSession: AVCaptureVideoDataOutput
     
     var device: AVCaptureDevice? = nil
 
     // MARK: - Callbacks
     var onImageCaptured: (UIImage) -> Void =  { _ in }
+    var onFrameCaptured: (CMSampleBuffer) -> Void = { _ in }
     
     // MARK: - Initialization
     override init() {
         self.session = AVCaptureSession()
         self.photoOutputSession = AVCapturePhotoOutput()
+        self.videoOutputSession = AVCaptureVideoDataOutput()
     }
 
     // MARK: - Methods
@@ -54,6 +57,14 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
             session.addOutput(self.photoOutputSession)
         } else {
             print("Can't add camera output")
+            throw CameraError.addOutputFailed
+        }
+        
+        if(session.canAddOutput(self.videoOutputSession)) {
+            self.videoOutputSession.setSampleBufferDelegate(self, queue: .global(qos: .userInitiated))
+            session.addOutput(self.videoOutputSession)
+        } else {
+            print("Can't add video output")
             throw CameraError.addOutputFailed
         }
     }
@@ -106,5 +117,9 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate {
         }
 
         self.onImageCaptured(uiImage)
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        self.onFrameCaptured(sampleBuffer)
     }
 }

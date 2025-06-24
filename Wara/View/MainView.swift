@@ -27,7 +27,7 @@ struct MainView: View {
             VStack {
                 Spacer()
                 
-                Text("Arahkan kamera ke daftar bahan makanan")
+                Text(viewModel.isIngredientLabelDectected ? "Daftar bahan makanan ditemukan" : "Arahkan kamera ke daftar bahan makanan")
                     .font(.caption)
                     .foregroundColor(.white)
                     .padding(8)

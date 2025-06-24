@@ -44,4 +44,24 @@ class OCRService {
             }
         }
     }
+    
+    func extractKoreanText(from sampleBuffer: CMSampleBuffer) throws -> String {
+        let request = VNRecognizeTextRequest()
+        request.recognitionLevel = .accurate
+        request.recognitionLanguages = ["ko-KR"]
+        
+        let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer)
+        
+        try requestHandler.perform([request])
+        
+        guard let observations = request.results, !observations.isEmpty else {
+            throw OCRError.noTextFound
+        }
+        
+        let recognizedText = observations
+            .compactMap { $0.topCandidates(1).first?.string }
+            .joined(separator: "\n")
+        
+        return recognizedText
+    }
 }
