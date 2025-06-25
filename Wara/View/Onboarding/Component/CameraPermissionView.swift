@@ -47,7 +47,7 @@ struct CameraPermissionView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
-                    .background(Color("Primary"))
+                    .background(Color("primaryblue"))
                     .cornerRadius(12)
             }
         }

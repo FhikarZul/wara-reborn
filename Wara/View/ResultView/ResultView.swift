@@ -121,9 +121,9 @@ struct ResultView: View {
                     Text("Scan Kembali")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity) // Perluas frame dari Text
+                        .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.primaryblue)
                         .cornerRadius(12)
                 }
                 .padding()

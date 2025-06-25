@@ -27,7 +27,7 @@ struct OnboardingButton: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color("Primary"))
+                    .background(Color("primaryblue"))
                     .cornerRadius(12)
             }
             .padding(.horizontal)
@@ -40,7 +40,7 @@ struct OnboardingButton: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color("Primary"))
+                    .background(Color("primaryblue"))
                     .cornerRadius(12)
             }
             .padding(.horizontal)
