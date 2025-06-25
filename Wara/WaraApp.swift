@@ -16,11 +16,10 @@ struct WaraApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // MARK: - PERUBAHAN: Logika untuk memilih tampilan awal
             if hasCompletedOnboarding {
                 MainView()
             } else {
-                OnboardingContainerView(hasCompletedOnboarding: $hasCompletedOnboarding)
+                OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
             }
         }
         .modelContainer(persistenceController.container)

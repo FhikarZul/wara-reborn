@@ -9,14 +9,16 @@ import SwiftUI
 import AVFoundation
 
 struct CameraPermissionView: View {
+    // MARK: - Bindings
     @Binding var hasCompletedOnboarding: Bool
     
+    // MARK: - Stats
     @State private var showAlert = false
-
+    
     var body: some View {
         VStack(spacing: 32) {
             Spacer()
-
+            
             VStack(alignment: .leading, spacing: 32) {
                 Text("Akses kamera dibutuhkan sebelum memulai")
                     .font(.largeTitle).bold()
@@ -24,14 +26,14 @@ struct CameraPermissionView: View {
                 Text("Dengan akses ini kami bisa membantumu mengidentifikasi kandungan bahan pada label komposisi produk kemasan berbahasa Korea dengan lebih cepat")
                     .foregroundColor(.white).font(.body)
             }.padding(.horizontal)
-
+            
             Image("Camerapermission")
                 .resizable().scaledToFit()
                 .frame(width: 240, height: 240)
                 .cornerRadius(24)
-
+            
             Spacer()
-
+            
             Button(action: {
                 requestCameraPermission()
             }) {
@@ -48,10 +50,10 @@ struct CameraPermissionView: View {
             }
         }
         .padding()
-        .background(Color("primaryblue", bundle: nil).ignoresSafeArea()) // Ganti warna jika perlu
+        .background(Color("Primary").ignoresSafeArea()) // Ganti warna jika perlu
         .navigationBarBackButtonHidden(true) // Sembunyikan tombol kembali
     }
-
+    
     // MARK: - PERUBAHAN: Logika request permission
     private func requestCameraPermission() {
         AVCaptureDevice.requestAccess(for: .video) { granted in

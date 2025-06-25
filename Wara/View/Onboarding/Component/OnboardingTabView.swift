@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-struct `OnboardingPageView`: View {
-    let imageName: String
+struct OnboardingTabView: View {
     let title: String
+    let imageName: String
     let description: String
 
     var body: some View {
-        VStack(spacing: 32) {
-            Spacer()
-
+        VStack(alignment: .center, spacing: 32) {
             Image(imageName)
                 .resizable()
                 .scaledToFit()
@@ -25,20 +23,11 @@ struct `OnboardingPageView`: View {
             Text(title)
                 .font(.title)
                 .bold()
-                .multilineTextAlignment(.center)
                 .padding(.horizontal)
 
             Text(description)
                 .font(.body)
-                .multilineTextAlignment(.center)
                 .padding(.horizontal)
-
-            Spacer()
         }
-        .padding()
     }
-}
-
-#Preview {
-    OnboardingPageView(imageName: "", title: "", description: "")
 }
