@@ -4,6 +4,7 @@
 //
 //  Created by Elvis on 25/06/25.
 //
+
 import SwiftUI
 
 struct OnboardingButton: View {
@@ -22,6 +23,7 @@ struct OnboardingButton: View {
         if selectedTab == 2 {
             NavigationLink(destination: CameraPermissionView(hasCompletedOnboarding: $hasCompletedOnboarding)) {
                 Text("Mulai Sekarang")
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -34,6 +36,7 @@ struct OnboardingButton: View {
         } else {
             Button(action: nextTab) {
                 Text("Selanjutnya")
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()

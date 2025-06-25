@@ -19,21 +19,21 @@ struct OnboardingView: View {
             VStack {
                 TabView(selection: $selectedTab) {
                     OnboardingTabView(
-                        title: "WARA",
+                        title: "Aplikasi Kami",
                         imageName: "Onboarding1",
-                        description: "Membantu kamu memilih produk makanan kemasan Korea yang aman dan sesuai prinsip Islam"
+                        description: "Membantu anda memilih makanan kemasan Korea yang aman dikonsumsi sesuai prinsip Islam"
                     ).tag(0)
                     
                     OnboardingTabView(
                         title: "Cukup Scan Label",
                         imageName: "Onboarding2",
-                        description: "Wara akan membaca bahan-bahan dalam makanan kemasan dan menandainya secara otomatis sesuai prinsip Islam"
+                        description: "Wara akan mendeteksi bahan makanan dan menandainya secara otomatis sesuai prinsip Islam"
                     ).tag(1)
                     
                     OnboardingTabView(
                         title: "Ambil Keputusan dengan Cepat",
                         imageName: "Onboarding3",
-                        description: "Setiap bahan dikategorikan dalam tiga tingkat: Dapat Dikonsumsi, Perlu Ditinjau, dan Perlu Dihindari – untuk membantu kamu membuat keputusan yang lebih bijak."
+                        description: "Setiap bahan akan dikategorikan menjadi (Dapat Dikonsumsi, Perlu Ditinjau, dan Perlu Dihindari) untuk membantumu mengambil keputusan"
                     ).tag(2)
                 }
                 .tabViewStyle(PageTabViewStyle())
@@ -43,4 +43,9 @@ struct OnboardingView: View {
             }
         }
     }
+}
+
+#Preview {
+    @Previewable @State  var hasCompletedOnboarding = false
+    OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
 }
