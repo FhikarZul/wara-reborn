@@ -104,7 +104,9 @@ class CameraViewModel: ObservableObject {
                 self.isIngredientLabelDectected = hasIngredients
             }
         } catch {
-            print(error)
+            DispatchQueue.main.async {
+                self.isIngredientLabelDectected = false
+            }
         }
     }
     
