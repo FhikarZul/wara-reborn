@@ -25,6 +25,14 @@ struct IngredientCard: View {
                 Text(ingredient.koreanName)
                     .font(.headline)
                     .fontWeight(.bold)
+                
+                if !ingredient.pronunciation.isEmpty {
+                    Text(ingredient.pronunciation)
+                        .font(.subheadline)
+                        .italic()
+                        .foregroundColor(.secondary)
+                }
+                
                 Spacer()
                 Text(ingredient.category.rawValue.capitalized)
                     .font(.caption.bold())
@@ -33,21 +41,14 @@ struct IngredientCard: View {
                     .padding(.vertical, 4)
                     .background(categoryColor)
                     .cornerRadius(8)
+
             }
             
-            // Sub-header: Nama Inggris & Pengucapan
-            VStack(alignment: .leading, spacing: 2) {
-                Text(ingredient.englishName)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                
-                if !ingredient.pronunciation.isEmpty {
-                    Text(ingredient.pronunciation)
-                        .font(.subheadline)
-                        .italic()
-                        .foregroundColor(.secondary)
-                }
-            }
+
+            
+            Text(ingredient.englishName)
+                .font(.body)
+                .fontWeight(.medium)
             
             // Deskripsi
             if !ingredient.descriptionText.isEmpty {
@@ -59,5 +60,45 @@ struct IngredientCard: View {
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
+    }
+}
+
+
+#Preview {
+    // Membuat beberapa contoh data untuk ditampilkan di preview
+    let amanIngredient = Ingredient(
+        koreanName: "소금",
+        pronunciation: "Sogeum",
+        englishName: "Salt",
+        descriptionText: "Garam mineral yang diekstrak dari air laut atau tambang. Dianggap halal untuk dikonsumsi.",
+        category: .aman
+    )
+    
+    let raguRaguIngredient = Ingredient(
+        koreanName: "젤라틴",
+        pronunciation: "Jellatin",
+        englishName: "Gelatin",
+        descriptionText: "Bisa berasal dari babi, sapi, atau ikan. Perlu dipastikan sumbernya. Tanpa sertifikasi, statusnya syubhat.",
+        category: .raguRagu
+    )
+    
+    let tidakAmanIngredient = Ingredient(
+        koreanName: "돼지고기",
+        pronunciation: "Dwaeji-gogi",
+        englishName: "Pork",
+        descriptionText: "Daging babi yang diharamkan dalam Islam.",
+        category: .tidakAman
+    )
+    
+    // Menampilkan semua variasi kartu dalam sebuah ScrollView
+    return ScrollView {
+        VStack(spacing: 20) {
+            Text("Contoh Kartu Bahan").font(.largeTitle).bold()
+            
+            IngredientCard(ingredient: tidakAmanIngredient)
+            IngredientCard(ingredient: raguRaguIngredient)
+            IngredientCard(ingredient: amanIngredient)
+        }
+        .padding()
     }
 }

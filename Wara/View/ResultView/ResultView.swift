@@ -22,12 +22,35 @@ struct ResultView: View {
     private var safeIngredients: [Ingredient] {
         result.foundIngredients.filter { $0.category == .aman }
     }
+    
+    private func createSummary(for ingredients: [Ingredient]) -> String {
+        // Tambahkan .lowercased() untuk membuat semua nama bahan menjadi huruf kecil
+        let names = ingredients.map { $0.englishName.lowercased() }
+        
+        switch names.count {
+        case 0:
+            return ""
+        case 1:
+            return names.first ?? ""
+        case 2:
+            return names.joined(separator: " dan ")
+        default: // Untuk 3 atau lebih
+            let topThree = names.prefix(3).joined(separator: ", ")
+            return "\(topThree), dll."
+        }
+    }
+
+
     private var mainStatusTuple: (icon: String, color: Color, title: String, subtitle: String) {
         switch result.status {
         case .tidakAman:
-            return ("xmark.circle.fill", .red, "Produk ini mengandung\nbahan yang perlu dihindari", "Kami menyarankan untuk menghindari produk ini karena mengandung bahan yang perlu dihindari")
+            let summary = createSummary(for: ingredientsToAvoid)
+            let subtitle = "Kami menyarankan untuk menghindari produk ini karena mengandung \(summary) yang perlu dihindari."
+            return ("xmark.circle.fill", .red, "Produk ini mengandung\nbahan yang perlu dihindari", subtitle)
         case .raguRagu:
-            return ("exclamationmark.triangle.fill", .orange, "Produk ini mengandung\nbahan yang perlu ditinjau", "Beberapa bahan dalam produk ini perlu ditinjau lebih lanjut")
+            let summary = createSummary(for: ingredientsToReview)
+            let subtitle = "Beberapa bahan dalam produk ini perlu ditinjau lebih lanjut seperti: \(summary)."
+            return ("exclamationmark.triangle.fill", .orange, "Produk ini mengandung\nbahan yang perlu ditinjau", subtitle)
         case .aman where !result.foundIngredients.isEmpty:
             return ("checkmark.circle.fill", .green, "Produk ini mengandung\nbahan yang dapat dikonsumsi", "Semua bahan yang terdeteksi dalam produk ini dapat dikonsumsi")
         case .ingredientsNotFound:
@@ -41,7 +64,7 @@ struct ResultView: View {
         NavigationView {
             VStack(spacing: 0) {
                 ScrollView {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 10) {
                         let status = mainStatusTuple
                         Image(systemName: status.icon)
                             .font(.system(size: 80))
@@ -61,14 +84,15 @@ struct ResultView: View {
                             .opacity(showContent ? 1 : 0)
                             .animation(.spring().delay(0.2), value: showContent)
                     }
-                    .padding(.vertical, 10)
+                    .padding(.bottom, 35)
+                    .padding(.top, 35)
                     .onAppear {
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
                             showContent = true
                         }
                     }
                     
-                    Divider()
+//                    Divider()
                     
                     VStack(spacing: 0) {
                         if !ingredientsToAvoid.isEmpty {
