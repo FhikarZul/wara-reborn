@@ -13,6 +13,7 @@ struct MainView: View {
     @StateObject private var viewModel: CameraViewModel
     
     @State private var selectedPhotoItem: PhotosPickerItem?
+    @State private var isShowingShowcaseAnimation: Bool = true
     
     init() {
         _viewModel = StateObject(
@@ -68,7 +69,9 @@ struct MainView: View {
                 
                 Spacer()
                 
-                ShowcaseAnimation()
+                if(isShowingShowcaseAnimation) {
+                    ShowcaseAnimation(isShowcaseAnimation: $isShowingShowcaseAnimation)
+                }
                 
                 Spacer()
                 

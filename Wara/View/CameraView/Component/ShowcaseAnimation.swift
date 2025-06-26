@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ShowcaseAnimation: View {
+    @Binding var isShowcaseAnimation: Bool
+    
     enum AnimationState {
         case initial, scalingUp, flipping, showingPhone, capturePhoto, resetting
     }
@@ -40,6 +42,7 @@ struct ShowcaseAnimation: View {
             }
             .frame(width: 120)
             .scaleEffect(isShowPackagedFood ? 1 : 0.5)
+            .opacity(isShowPackagedFood ? 1 : 0)
             .position(x: geo.size.width/2, y: geo.size.height/2)
             
             ZStack {
@@ -131,8 +134,7 @@ struct ShowcaseAnimation: View {
                 frontOpacity = 1
                 backOpacity = 0
             } completion: {
-                animationState = .initial
-                triggerAnimationSequence()
+                isShowcaseAnimation = false
             }
         }
     }
