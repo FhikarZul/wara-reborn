@@ -80,10 +80,10 @@ struct MainView: View {
                     .background(.black.opacity(0.2))
                     .clipShape(Circle())
                 }
-                .padding(.top, 24)
+                .padding(.top, 32)
                 .padding(.bottom, 4)
                 .frame(maxWidth: .infinity)
-                .background(Color.black.opacity(0.2))
+                .background(Color.black.opacity(0.1))
             }
             .frame(maxWidth: .infinity)
             
