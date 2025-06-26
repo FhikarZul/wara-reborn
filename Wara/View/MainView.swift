@@ -64,7 +64,7 @@ struct MainView: View {
                             + (viewModel.isIngredientLabelDectected
                                 ? "detected" : "scanning")
                     )
-                }
+                }.frame(height: 80)
 
                 Spacer()
 
@@ -109,8 +109,10 @@ struct MainView: View {
                     .background(.black.opacity(0.2))
                     .clipShape(Circle())
                 }
-                .padding(.bottom, 30)
+                .padding(.top, 32)
+                .padding(.bottom, 4)
                 .frame(maxWidth: .infinity)
+                .background(Color.black.opacity(0.1))
                 .accessibilityHidden(areControlsHidden)
             }
             .frame(maxWidth: .infinity)
