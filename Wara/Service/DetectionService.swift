@@ -36,7 +36,7 @@ class DetectionService {
         guard let cleanedIngredientFullText = self.removeIngredientExtraInformation(from: ingredientFullText) else {
             return DetectionResult(status: .ingredientsNotFound, foundIngredients: [], originalText: text)
         }
-        
+
         let descriptor = FetchDescriptor<Ingredient>()
         guard let allIngredients = try? modelContext.fetch(descriptor) else {
             return DetectionResult(status: .raguRagu, foundIngredients: [], originalText: text)
@@ -88,7 +88,7 @@ class DetectionService {
     }
     
     func removeIngredientExtraInformation(from text: String) -> String? {
-        let pattern = #/\((.*?)\)|(\s*\d*\s*%)|\[|\]?/#
+        let pattern = #/\((.*?)\)|(\s*\d*\s*%)|(\s*\d*.\d*\s*%)|\[(.*?)\]|(\s*\d*\~\d*)|\[|\]?/#
         
         return text.replacing(pattern) { match in
             return ""
