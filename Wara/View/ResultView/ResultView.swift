@@ -54,7 +54,7 @@ struct ResultView: View {
         case .aman where !result.foundIngredients.isEmpty:
             return ("checkmark.circle.fill", .green, "Produk ini mengandung\nbahan yang dapat dikonsumsi", "Semua bahan yang terdeteksi dalam produk ini dapat dikonsumsi")
         case .ingredientsNotFound:
-            return ("doc.text.magnifyingglass", .blue, "Label Bahan\nTidak Ditemukan", "Pastikan Anda memindai bagian daftar bahan pada kemasan")
+            return ("doc.text.magnifyingglass", .primaryblue, "Label Bahan\nTidak Ditemukan", "Pastikan Anda memindai bagian daftar bahan pada kemasan")
         default:
             return ("checkmark.circle.fill", .green, "Tidak Ada Bahan Kritis\nDitemukan", "Tidak ada bahan yang perlu dihindari atau ditinjau yang terdeteksi")
         }
