@@ -34,7 +34,7 @@ struct ResultView: View {
             return names.first ?? ""
         case 2:
             return names.joined(separator: " dan ")
-        default: // Untuk 3 atau lebih
+        default:
             let topThree = names.prefix(3).joined(separator: ", ")
             return "\(topThree), dll."
         }
@@ -60,58 +60,108 @@ struct ResultView: View {
         }
     }
     
+    struct HowToStep: Identifiable {
+        let id = UUID()
+        let imageName: String
+        let description: String
+    }
+
+    
+    let howToData: [HowToStep] = [
+        HowToStep(imageName: "guide_step_1", description: "Cari bagian kemasan yang berisi daftar bahan produk."),
+        HowToStep(imageName: "guide_step_2", description: "Arahkan Kamera ke arah box komposisi makanan, pastikan teks terlihat jelas, tidak buram, dan terkena cahaya yang cukup."),
+        HowToStep(imageName: "guide_step_3", description: "Pindai & tunggu hasil setelah teks terbaca, sistem akan otomatis memproses dan menampilkan hasilnya.")
+    ]
+
+    struct HowToStepCard: View {
+        let step: HowToStep
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 8) {
+                Image(step.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                Text(step.description)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(width: 300)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 ScrollView {
-                    VStack(spacing: 10) {
-                        let status = mainStatusTuple
-                        Image(systemName: status.icon)
-                            .font(.system(size: 80))
-                            .foregroundColor(status.color)
-                            .scaleEffect(showContent ? 1 : 0.5)
-                            .opacity(showContent ? 1 : 0)
-                        
-                        Text(status.title)
-                            .font(.title2).fontWeight(.bold).multilineTextAlignment(.center)
-                            .foregroundColor(.primary).padding(.horizontal)
-                            .opacity(showContent ? 1 : 0)
-                            .animation(.spring().delay(0.1), value: showContent)
+                    if result.status == .ingredientsNotFound {
+                        VStack(spacing: 24) {
+                            let status = mainStatusTuple
+                            Image(systemName: status.icon).font(.system(size: 80)).foregroundColor(status.color)
+                            Text(status.title).font(.title2).fontWeight(.bold).multilineTextAlignment(.center).foregroundColor(.primary)
+                            Text(status.subtitle).font(.body).foregroundColor(.secondary).multilineTextAlignment(.center).padding(.horizontal)
+                            
+                            Divider()
+                            
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Cara Pindai yang Benar")
+                                    .font(.headline)
+                                    .padding(.horizontal)
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 16) {
+                                        ForEach(howToData) { step in
+                                            HowToStepCard(step: step)
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                            }
+                        }
+                        .padding(.top, 35)
 
-                        Text(status.subtitle)
-                            .font(.body).foregroundColor(.secondary).multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                            .opacity(showContent ? 1 : 0)
-                            .animation(.spring().delay(0.2), value: showContent)
-                    }
-                    .padding(.bottom, 35)
-                    .padding(.top, 35)
-                    .onAppear {
-                        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                            showContent = true
+                    } else {
+                        VStack(spacing: 10) {
+                            let status = mainStatusTuple
+                            Image(systemName: status.icon).font(.system(size: 80)).foregroundColor(status.color)
+                                .scaleEffect(showContent ? 1 : 0.5).opacity(showContent ? 1 : 0)
+                            Text(status.title).font(.title2).fontWeight(.bold).multilineTextAlignment(.center)
+                                .foregroundColor(.primary).padding(.horizontal)
+                                .opacity(showContent ? 1 : 0).animation(.spring().delay(0.1), value: showContent)
+                            Text(status.subtitle).font(.body).foregroundColor(.secondary).multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                                .opacity(showContent ? 1 : 0).animation(.spring().delay(0.2), value: showContent)
                         }
-                    }
-                    
-//                    Divider()
-                    
-                    VStack(spacing: 0) {
-                        if !ingredientsToAvoid.isEmpty {
-                            NavigationLink(destination: IngredientListView(ingredients: ingredientsToAvoid, category: .tidakAman)) {
-                                ResultCategoryRow(icon: "xmark.circle.fill", color: .red, title: "Bahan yang perlu dihindari", count: ingredientsToAvoid.count)
+                        .padding(.bottom, 35)
+                        .padding(.top, 35)
+                        
+                        // Daftar Kategori (hanya muncul jika ada hasil)
+                        VStack(spacing: 0) {
+                            if !ingredientsToAvoid.isEmpty {
+                                NavigationLink(destination: IngredientListView(ingredients: ingredientsToAvoid, category: .tidakAman)) {
+                                    ResultCategoryRow(icon: "xmark.circle.fill", color: .red, title: "Bahan yang perlu dihindari", count: ingredientsToAvoid.count)
+                                }
+                            }
+                            if !ingredientsToReview.isEmpty {
+                                NavigationLink(destination: IngredientListView(ingredients: ingredientsToReview, category: .raguRagu)) {
+                                    ResultCategoryRow(icon: "exclamationmark.circle.fill", color: .orange, title: "Bahan yang perlu ditinjau", count: ingredientsToReview.count)
+                                }
+                            }
+                            if !safeIngredients.isEmpty {
+                                NavigationLink(destination: IngredientListView(ingredients: safeIngredients, category: .aman)) {
+                                    ResultCategoryRow(icon: "checkmark.circle.fill", color: .green, title: "Bahan yang dapat dikonsumsi", count: safeIngredients.count)
+                                }
                             }
                         }
-                        if !ingredientsToReview.isEmpty {
-                            NavigationLink(destination: IngredientListView(ingredients: ingredientsToReview, category: .raguRagu)) {
-                                ResultCategoryRow(icon: "exclamationmark.circle.fill", color: .orange, title: "Bahan yang perlu ditinjau", count: ingredientsToReview.count)
-                            }
-                        }
-                        if !safeIngredients.isEmpty {
-                            NavigationLink(destination: IngredientListView(ingredients: safeIngredients, category: .aman)) {
-                                ResultCategoryRow(icon: "checkmark.circle.fill", color: .green, title: "Bahan yang dapat dikonsumsi", count: safeIngredients.count)
-                            }
-                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                }
+                .onAppear {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+                        showContent = true
+                    }
                 }
                 
                 Spacer()
@@ -119,12 +169,8 @@ struct ResultView: View {
                 // Tombol Scan Kembali
                 Button(action: onDismiss) {
                     Text("Scan Kembali")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.primaryblue)
-                        .cornerRadius(12)
+                        .font(.headline).foregroundColor(.white).frame(maxWidth: .infinity)
+                        .padding().background(Color("primaryblue", bundle: nil)).cornerRadius(12)
                 }
                 .padding()
             }

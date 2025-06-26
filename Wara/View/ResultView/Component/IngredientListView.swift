@@ -12,15 +12,13 @@ struct IngredientListView: View {
     let category: IngredientCategory
 
     var body: some View {
-        // Menggunakan List untuk menampung kartu-kartu bahan
         List {
             ForEach(ingredients, id: \.koreanName) { ingredient in
                 IngredientCard(ingredient: ingredient)
-                    // Menghilangkan garis pemisah bawaan List agar rapi
                     .listRowSeparator(.hidden)
             }
         }
-        .listStyle(.plain) // Menggunakan style plain agar tidak ada background tambahan
+        .listStyle(.plain)
         .navigationTitle(category.rawValue.capitalized)
         .navigationBarTitleDisplayMode(.inline)
     }
