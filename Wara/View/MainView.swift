@@ -11,9 +11,9 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: CameraViewModel
-
+    
     @State private var selectedPhotoItem: PhotosPickerItem?
-
+    
     init() {
         _viewModel = StateObject(
             wrappedValue: CameraViewModel(
@@ -30,23 +30,23 @@ struct MainView: View {
             return true
         }
     }
-
+    
     var body: some View {
         ZStack {
             CameraView(viewModel: viewModel)
                 .ignoresSafeArea()
-
+            
             VStack {
                 HStack {
                     HStack(alignment: .center) {
                         if viewModel.isIngredientLabelDectected {
                             Image(systemName: "checkmark.circle.fill")
                         }
-
+                        
                         Text(
                             viewModel.isIngredientLabelDectected
-                                ? "Label komposisi ditemukan"
-                                : "Yuk, pindai label komposisi"
+                            ? "Label komposisi ditemukan"
+                            : "Yuk, pindai label komposisi"
                         )
                     }
                     .padding(.vertical, 8)
@@ -61,13 +61,17 @@ struct MainView: View {
                     .transition(.scale)
                     .id(
                         "detectionStatusText_"
-                            + (viewModel.isIngredientLabelDectected
-                                ? "detected" : "scanning")
+                        + (viewModel.isIngredientLabelDectected
+                           ? "detected" : "scanning")
                     )
                 }.frame(height: 80)
-
+                
                 Spacer()
-
+                
+                ShowcaseAnimation()
+                
+                Spacer()
+                
                 HStack(alignment: .center, spacing: 60) {
                     // Tombol Impor Galeri
                     PhotosPicker(
@@ -95,12 +99,12 @@ struct MainView: View {
                                 .frame(width: 75, height: 75)
                         }
                     }
-
+                    
                     // Tombol Senter
                     Button(action: viewModel.toggleTorch) {
                         Image(
                             systemName: viewModel.isTorchOn
-                                ? "bolt.fill" : "bolt.slash.fill"
+                            ? "bolt.fill" : "bolt.slash.fill"
                         )
                         .font(.title)
                         .foregroundColor(.white)
@@ -116,7 +120,7 @@ struct MainView: View {
                 .accessibilityHidden(areControlsHidden)
             }
             .frame(maxWidth: .infinity)
-
+            
             // Lapisan untuk menampilkan hasil atau status
             switch viewModel.scanState {
             case .idle:
@@ -131,6 +135,7 @@ struct MainView: View {
                 ErrorView(message: message, onDismiss: viewModel.resetState)
             }
         }
+        .background(.black)
         .animation(.bouncy, value: viewModel.isIngredientLabelDectected)
         .onChange(of: selectedPhotoItem) {
             Task {
@@ -145,4 +150,8 @@ struct MainView: View {
             }
         }
     }
+}
+
+#Preview {
+    MainView()
 }
