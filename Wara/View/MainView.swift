@@ -52,6 +52,9 @@ struct MainView: View {
                             .font(.title)
                             .foregroundColor(.white)
                     }
+                    .frame(width: 64, height: 64)
+                    .background(.black.opacity(0.2))
+                    .clipShape(Circle())
                     
                     // Tombol Capture
                     Button(action: {
@@ -73,9 +76,16 @@ struct MainView: View {
                             .font(.title)
                             .foregroundColor(.white)
                     }
+                    .frame(width: 64, height: 64)
+                    .background(.black.opacity(0.2))
+                    .clipShape(Circle())
                 }
-                .padding(.bottom, 30)
+                .padding(.top, 24)
+                .padding(.bottom, 4)
+                .frame(maxWidth: .infinity)
+                .background(Color.black.opacity(0.2))
             }
+            .frame(maxWidth: .infinity)
             
             // Lapisan untuk menampilkan hasil atau status
             switch viewModel.scanState {
