@@ -21,11 +21,9 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     
     var device: AVCaptureDevice? = nil
 
-    // MARK: - Callbacks
     var onImageCaptured: (UIImage) -> Void =  { _ in }
     var onFrameCaptured: (CMSampleBuffer) -> Void = { _ in }
     
-    // MARK: - Initialization
     override init() {
         self.session = AVCaptureSession()
         self.photoOutputSession = AVCapturePhotoOutput()

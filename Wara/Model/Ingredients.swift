@@ -35,16 +35,16 @@ final class Ingredient {
 // Struct ini HANYA untuk decoding dari JSON.
 struct IngredientDTO: Decodable {
     let koreanName: String
-    let pronunciation: String
     let englishName: String
-    let descriptionText: String
+    let pronunciation: String
     let category: IngredientCategory
+    let descriptionText: String
 
     enum CodingKeys: String, CodingKey {
         case koreanName = "Ingredient(Korea)"
-        case pronunciation = "Pronounce"
         case englishName = "Ingredient(translate)"
-        case descriptionText = "Description"
+        case pronunciation = "Pronounce"
         case category = "Kategori"
+        case descriptionText = "Description"
     }
 }
