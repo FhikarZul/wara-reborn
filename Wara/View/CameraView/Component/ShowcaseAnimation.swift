@@ -100,7 +100,7 @@ struct ShowcaseAnimation: View {
             
         case .flipping:
             // 3. Show the phone
-            withAnimation(.bouncy(duration: 1).delay(1)) {
+            withAnimation(.bouncy(duration: 1)) {
                 isPhoneAppear = true
             } completion: {
                 animationState = .showingPhone
