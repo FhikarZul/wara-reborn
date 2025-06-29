@@ -865,63 +865,63 @@
     "Ingredient(translate)": "Ayam",
     "Pronounce": "Chikin",
     "Kategori": "ragu-ragu",
-    "Description": "Daging ayam"
+    "Description": "Daging ayam, namun harus ditinjau kembali proses penyembelihan yang harus sesuai dengan syariat islam"
   },
   {
     "Ingredient(Korea)": "버터",
     "Ingredient(translate)": "Mentega",
     "Pronounce": "Beoteo",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber (susu) dan proses kimianya (apakah ada bahan non-halal)."
+    "Description": "Produk olahan susu yang dibuat dengan mengaduk krim atau susu. Digunakan untuk memberikan rasa gurih dan tekstur yang kaya."
   },
   {
     "Ingredient(Korea)": "비타민B1질산염",
     "Ingredient(translate)": "Vitamin B1 (Tiamin Nitrat)",
     "Pronounce": "Bi-Ta-Min B1-Jil-San-Yeom",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya."
+    "Description": "Vitamin B1 Nitra."
   },
   {
     "Ingredient(Korea)": "비타민B2",
     "Ingredient(translate)": "Vitamin B2 (Riboflavin)",
     "Pronounce": "Bi-Ta-Min B2",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya."
+    "Description": "Vitamin B2 (Riboflavin)."
   },
   {
     "Ingredient(Korea)": "비타민B6염산염",
     "Ingredient(translate)": "Vitamin B6 (Piridoksin Hidroklorida)",
     "Pronounce": "Bi-Ta-Min B6-Yeomsan-Yeom",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya."
+    "Description": "Vitamin B6 Hidroklorida (Pyridoxine HCl)."
   },
   {
     "Ingredient(Korea)": "비타민B12",
     "Ingredient(translate)": "Vitamin B12",
     "Pronounce": "Bi-Ta-Min B12",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya (terkadang menggunakan media fermentasi hewani)."
+    "Description": "Vitamin B12 (Cyanocobalamin)."
   },
   {
     "Ingredient(Korea)": "분말고추장",
     "Ingredient(translate)": "Bubuk Gochujang",
     "Pronounce": "Bunmal Gochujang",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya (apakah ada alkohol residu atau bahan non-halal lainnya)."
+    "Description": "Pasta cabai fermentasi khas Korea (Gochujang) yang telah dikeringkan menjadi bentuk bubuk."
   },
   {
     "Ingredient(Korea)": "조미베이스",
     "Ingredient(translate)": "Bumbu Dasar",
     "Pronounce": "Jomi Beiseu",
     "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber bahan-bahan penyusunnya (bisa mengandung ekstrak hewani non-halal)."
+    "Description": "bahan dasar atau fondasi bumbu yang sudah dicampur sebelumnya oleh pabrik untuk menciptakan profil rasa tertent."
   },
   {
     "Ingredient(Korea)": "짜장분말",
     "Ingredient(translate)": "Bubuk Jjajang",
     "Pronounce": "Jjajang Bunmal",
-    "Kategori": "ragu-ragu",
-    "Description": "Aditif. Status kehalalannya tidak menentu karena memerlukan analisis mendalam terhadap sumber dan proses kimianya (terutama jika ada lemak hewani)."
+    "Kategori": "tidak aman",
+    "Description": "Bubuk yang digunakan untuk membuat saus Jjajang, saus pasta kacang hitam fermentasi yang populer dalam hidangan Jjajangmyeon."
   },
   {
     "Ingredient(Korea)": "된장2호",
@@ -1678,5 +1678,187 @@
     "Pronounce": "Jelli",
     "Kategori": "ragu-ragu",
     "Description": "Makanan kenyal yang sering menggunakan gelatin sebagai bahan pengenyal. Status 'ragu-ragu' karena gelatin bisa berasal dari babi (haram) atau sapi/ikan yang tidak disembelih secara syar'i (syubhat). Harus dipastikan sumber gelatinnya adalah halal."
+  },
+  {
+    "Ingredient(Korea)": "아몬드",
+    "Ingredient(translate)": "Almond",
+    "Pronounce": "Amondeu",
+    "Kategori": "aman",
+    "Description": "Berasal dari Kacang-kacangan alami, tidak mengandung unsur mencurigakan."
+  },
+  {
+    "Ingredient(Korea)": "구운아몬드",
+    "Ingredient(translate)": "Almond Panggang",
+    "Pronounce": "Guun amondeu",
+    "Kategori": "aman",
+    "Description": "Berasal dari Kacang-kacangan alami yang dipanggang, tidak mengandung unsur mencurigakan."
+  },
+  {
+    "Ingredient(Korea)": "분말김치국물",
+    "Ingredient(translate)": "Bubuk air kimchi",
+    "Pronounce": "bunmul kimchigukmul",
+    "Kategori": "ragu-ragu",
+    "Description": "Kimchi tradisional biasanya difermentasi dengan saus ikan, udang asin, atau bahan fermentasi lainnya yang bisa berasal dari sumber hewani."
+  },
+  {
+    "Ingredient(Korea)": "채종유",
+    "Ingredient(translate)": "Minyak Canola",
+    "Pronounce": "Chaejongyu",
+    "Kategori": "aman",
+    "Description": "Minyak nabati yang diekstrak dari biji bunga rapeseed atau canola. Umumnya melibatkan penyaringan dan penyulingan tanpa penggunaan enzim hewani. Pemurnian biasanya menggunakan zat kimia seperti soda kaustik (alkali), bukan alkohol atau enzim hewani"
+  },
+  {
+    "Ingredient(Korea)": "새우",
+    "Ingredient(translate)": "Udang",
+    "Pronounce": "Saeu",
+    "Kategori": "aman",
+    "Description": "Udang adalah hewan laut dan halal dikonsumsi"
+  },
+  {
+    "Ingredient(Korea)": "기타과당",
+    "Ingredient(translate)": "Fruktosa Tambahan",
+    "Pronounce": "Gitagwadang",
+    "Kategori": "aman",
+    "Description": "Gula alami yang biasanya berasal dari buah atau jagung yang diubah menjadi glukosa dan sebagian diubah menjadi fruktosa melalui enzim."
+  },
+  {
+    "Ingredient(Korea)": "청포도농축액",
+    "Ingredient(translate)": "Konsentrat Anggur Hijau",
+    "Pronounce": "Cheongpodo nongchugaek",
+    "Kategori": "aman",
+    "Description": "Konsentrat anggur hijau yang berasal dari jus anggur hijau yang dipadatkan/dikonsentrat."
+  },
+  {
+    "Ingredient(Korea)": "포도",
+    "Ingredient(translate)": "Anggur",
+    "Pronounce": "Podo",
+    "Kategori": "aman",
+    "Description": "Buah Anggur. Buah-buahan secara umum aman dikonsumsi Muslim."
+  },
+  {
+    "Ingredient(Korea)": "청포도",
+    "Ingredient(translate)": "Anggur Hijau",
+    "Pronounce": "Cheongpodo",
+    "Kategori": "aman",
+    "Description": "Buah Anggur hijau. Buah-buahan secara umum aman dikonsumsi Muslim."
+  },
+  {
+    "Ingredient(Korea)": "샤인머스캣혼합농축액",
+    "Ingredient(translate)": "Konsentrat Campuran Shine Muscat",
+    "Pronounce": "Syainmeoseukhaethonhabnongchugaek",
+    "Kategori": "aman",
+    "Description": "Konsentrat buah dari anggur jenis Shine Muscat (anggur hijau premium asal Jepang/Korea), sering dicampur dengan buah lain atau perisa tambahan."
+  },
+  {
+    "Ingredient(Korea)": "식용색소황색제4호",
+    "Ingredient(translate)": "Tartrazine (Yellow No. 4 / E102)",
+    "Pronounce": "Sikyongsaekso hwangsaek jesaho",
+    "Kategori": "aman",
+    "Description": "Pewarna makanan sintesis diperoleh secara kimia dengan mencampur dua atau lebih zat menjadi satu zat baru. Menurut Peraturan Kepala Badan Pengawas Obat dan Makanan (BPOM) Republik Indonesia Nomor 37 Tahun 2013 tentang Batas Maksimum Penggunaan Bahan Tambahan Pangan Pewarna, Pewarna sintesis yang diperbolehkan, namun dibatasi penggunaannya, antara lain tartrazin, kuning kuinolin, kuning FCF, karmoisin, ponceau, eritrosin, merah allura, indigotin, biru berlian FCF, hijau FCF, dan cokelat HT."
+  },
+  {
+    "Ingredient(Korea)": "식용색소청색제1호",
+    "Ingredient(translate)": "Brilliant Blue FCF (Blue No. 1 / E133)",
+    "Pronounce": "Sikyongsaekso hwangsaek jeilho",
+    "Kategori": "aman",
+    "Description": "Pewarna makanan sintesis diperoleh secara kimia dengan mencampur dua atau lebih zat menjadi satu zat baru. Menurut Peraturan Kepala Badan Pengawas Obat dan Makanan (BPOM) Republik Indonesia Nomor 37 Tahun 2013 tentang Batas Maksimum Penggunaan Bahan Tambahan Pangan Pewarna, Pewarna sintesis yang diperbolehkan, namun dibatasi penggunaannya, antara lain tartrazin, kuning kuinolin, kuning FCF, karmoisin, ponceau, eritrosin, merah allura, indigotin, biru berlian FCF, hijau FCF, dan cokelat HT."
+  },
+  {
+    "Ingredient(Korea)": "구연산삼나트륨",
+    "Ingredient(translate)": "Sodium Citrate (Trisodium Citrate)",
+    "Pronounce": "Guyeonsan nateuryum",
+    "Kategori": "aman",
+    "Description": "Garam natrium dari asam sitrat. Biasanya berasal dari fermentasi glukosa/tepung jagung menggunakan mikroorganisme (bukan hewani)"
+  },
+  {
+    "Ingredient(Korea)": "감미료(수크랄로스)",
+    "Ingredient(translate)": "Pemanis buatan (Sucralose)",
+    "Pronounce": "Gammiryo (sukeuralloseu)",
+    "Kategori": "aman",
+    "Description": "Sucralose adalah bahan sintetis dari gula, bukan berasal dari hewan atau alkohol, dan telah disertifikasi halal oleh banyak lembaga (termasuk MUI, JAKIM, IFANCA)"
+  },
+  {
+    "Ingredient(Korea)": "샤인머스캣향",
+    "Ingredient(translate)": "Perisa Shine Muscat",
+    "Pronounce": "Syainmeoseukhaethyang",
+    "Kategori": "ragu-ragu",
+    "Description": "Perisa Shine Muscat. Perisa buah biasanya aman, tapi perlu dikonfirmasi apakah pelarutnya mengandung alkohol."
+  },
+  {
+    "Ingredient(Korea)": "망고향",
+    "Ingredient(translate)": "Perisa Mangga",
+    "Pronounce": "Manggohyang",
+    "Kategori": "ragu-ragu",
+    "Description": "Perisa Mangga. Perisa buah biasanya aman, tapi perlu dikonfirmasi apakah pelarutnya mengandung alkohol."
+  },
+  {
+    "Ingredient(Korea)": "스위티스디에스500",
+    "Ingredient(translate)": "Sweetis DS500",
+    "Pronounce": "Seuwitiseudieseu obaek",
+    "Kategori": "aman",
+    "Description": "Sweetis DS-500 adalah nama dagang untuk pemanis rendah kalori, kemungkinan besar berbasis sucralose (수크랄로스) atau campuran pemanis sejenis yang digunakan dalam makanan/minuman"
+  },
+  {
+    "Ingredient(Korea)": "복숭아",
+    "Ingredient(translate)": "Buah persik",
+    "Pronounce": "Boksunga",
+    "Kategori": "aman",
+    "Description": "Buah persik. Buah-buahan secara umum aman dikonsumsi Muslim."
+  },
+  {
+    "Ingredient(Korea)": "복숭아 농축액",
+    "Ingredient(translate)": "Konsentrat buah persik",
+    "Pronounce": "Boksunga Nongchugaek",
+    "Kategori": "aman",
+    "Description": "Sari buah persik yang dipadatkan dengan cara mengurangi kadar airnya."
+  },
+  {
+    "Ingredient(Korea)": "홍차분말",
+    "Ingredient(translate)": "Bubuk teh hitam",
+    "Pronounce": "Hongcha bunmal",
+    "Kategori": "aman",
+    "Description": "Berasal dari daun teh alami dan tidak difermentasi menjadi alkohol"
+  },
+  {
+    "Ingredient(Korea)": "복숭아과즙",
+    "Ingredient(translate)": "Jus buah persik",
+    "Pronounce": "Boksunga gwajeup",
+    "Kategori": "aman",
+    "Description": "Jus buah persik atau ekstrak murni dari buah persik."
+  },
+  {
+    "Ingredient(Korea)": "복숭아향",
+    "Ingredient(translate)": "Perisa buah persih",
+    "Pronounce": "Boksungahyang",
+    "Kategori": "ragu-ragu",
+    "Description": "Perisa Shine Muscat. Perisa buah biasanya aman, tapi perlu dikonfirmasi apakah pelarutnya mengandung alkohol."
+  },
+  {
+    "Ingredient(Korea)": "향료",
+    "Ingredient(translate)": "Perisa",
+    "Pronounce": "Hyangnyo",
+    "Kategori": "ragu-ragu",
+    "Description": "Dalam penggunaan perisa berdasarkan Fatwa MUI No. 10 Tahun 2018 tentang Produk Makanan dan Minuman yang Mengandung Alkohol/Etanol. Pertama, penggunaan produk-antara (intermediate product) yang tidak dikonsumsi langsung seperti flavour yang mengandung alkohol/etanol non-khamr untuk bahan produk makanan hukumnya mubah, apabila secara medis tidak membahayakan. Kedua, penggunaan produk-antara (intermediate product) yang tidak dikonsumsi langsung seperti flavour yang mengandung alkohol/etanol non khamar untuk bahan produk minuman hukumnya mubah, apabila secara medis tidak membahayakan dan selama kadar alkohol/etanol (C2H5OH) pada produk akhir kurang dari 0,5%. Flavour/perisa/essence termasuk ke dalam produk-antara. Artinya boleh digunakan selama sumber etanol/alkohol bukan berasal dari khamr."
+  },
+  {
+    "Ingredient(Korea)": "글리세린지방산에스테르",
+    "Ingredient(translate)": "Glyceryl Fatty Acid Ester",
+    "Pronounce": "Glycerin Jibangsan Ester",
+    "Kategori": "ragu-ragu",
+    "Description": "Glyceryl Fatty Acid Ester atau dalam istilah internasional dikenal sebagai Mono- dan Digliserida Asam Lemak (dalam kode E: E471). Bisa dari sumber nabati: seperti minyak kelapa sawit, kedelai, bunga matahari. Bisa dari sumber hewani: seperti lemak sapi atau babi. Sehingga perlu dicek asal lemaknya — nabati (halal), hewani (perlu dikonfirmasi)"
+  },
+  {
+    "Ingredient(Korea)": "소르비탄지방산에스테르",
+    "Ingredient(translate)": "Sorbitan Fatty Acid Ester",
+    "Pronounce": "Sorbitan Jibangsan Ester",
+    "Kategori": "ragu-ragu",
+    "Description": "Sorbitan Fatty Acid Ester — sejenis emulsifier atau pengemulsi yang biasa digunakan dalam makanan olahan, seperti roti, es krim, margarin, dan krimer. Sorbitan umumnya berasal dari sorbitol, turunan glukosa (nabati). Fatty acid (asam lemak) Bisa dari tumbuhan (minyak nabati) atau dari lemak hewani (seperti lemak babi atau sapi). Sehingga Halal jika dari tumbuhan, tapi perlu konfirmasi sumber lemak"
+  },
+  {
+    "Ingredient(Korea)": "카복시메틸룰로스나트륨",
+    "Ingredient(translate)": "Carboxymethylcellulose Sodium",
+    "Pronounce": "Carboxymethylcellulose Sodium",
+    "Kategori": "aman",
+    "Description": "Carboxymethylcellulose Sodium) atau disingkat CMC-Na, adalah bahan tambahan makanan yang sangat umum, digunakan sebagai: Penstabil, pengental, dan pengemulsi dalam berbagai makanan dan minuman. Berasal dari tumbuhan, tidak mengandung unsur hewani atau alkohol, dan umum digunakan dalam produk bersertifikat halal"
   }
 ]
