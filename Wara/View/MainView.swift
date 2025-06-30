@@ -49,6 +49,9 @@ struct MainView: View {
                             ? "Label komposisi ditemukan"
                             : "Yuk, pindai label komposisi"
                         )
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
@@ -56,7 +59,7 @@ struct MainView: View {
                         viewModel.isIngredientLabelDectected ? .green : .white
                     )
                     .background(.black.opacity(0.6))
-                    .cornerRadius(40)
+                    .clipShape(.capsule)
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .transition(.scale)
@@ -88,6 +91,7 @@ struct MainView: View {
                     .frame(width: 64, height: 64)
                     .background(.black.opacity(0.2))
                     .clipShape(Circle())
+                    .accessibilityLabel("Ambil foto dari galeri")
                     
                     // Tombol Capture
                     Button(action: {
@@ -101,7 +105,7 @@ struct MainView: View {
                                 .stroke(Color.white, lineWidth: 4)
                                 .frame(width: 75, height: 75)
                         }
-                    }
+                    }.accessibilityLabel("Tekan untuk ambil foto dari kamera")
                     
                     // Tombol Senter
                     Button(action: viewModel.toggleTorch) {
@@ -138,7 +142,7 @@ struct MainView: View {
                 ErrorView(message: message, onDismiss: viewModel.resetState)
             }
         }
-        .background(.black)
+        .background(.white)
         .animation(.bouncy, value: viewModel.isIngredientLabelDectected)
         .onChange(of: selectedPhotoItem) {
             Task {
