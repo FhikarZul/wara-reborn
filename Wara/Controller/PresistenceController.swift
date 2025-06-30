@@ -17,17 +17,22 @@ class PersistenceController {
     private init() {
         do {
             container = try ModelContainer(for: Ingredient.self)
+            
+            // 1. Ambil referensi container di Main Actor (aman)
+            let localContainer = self.container
+            
+            // 2. Jalankan tugas di background dengan memberikan container sebagai parameter
             Task(priority: .background) {
-                await self.forceReloadDatabaseFromJSON()
+                await self.forceReloadDatabaseIfNeeded(using: localContainer)
             }
         } catch {
             fatalError("Failed to initialize SwiftData container: \(error.localizedDescription)")
         }
     }
 
-    private func forceReloadDatabaseFromJSON() async {
-        print("Checking for database updates on app launch...")
-
+    /// Fungsi ini hanya akan berjalan di background dan terisolasi.
+    private func forceReloadDatabaseIfNeeded(using container: ModelContainer) async {
+        // 3. Buat context khusus untuk background dari container yang diberikan
         let backgroundContext = ModelContext(container)
         
         guard let url = Bundle.main.url(forResource: "Ingredients", withExtension: "json") else {
@@ -38,16 +43,17 @@ class PersistenceController {
             let data = try Data(contentsOf: url)
             let dtos = try JSONDecoder().decode([IngredientDTO].self, from: data)
             
+            // Cek jumlah data untuk efisiensi
             let descriptor = FetchDescriptor<Ingredient>()
             let currentCount = (try? backgroundContext.fetchCount(descriptor)) ?? -1
-            
             if currentCount == dtos.count {
-                print("Database content matches JSON file. No update needed.")
+                print("Database is up to date. No update needed.")
                 return
             }
             
             print("Database requires update. Wiping and reloading...")
             
+            // 4. Lakukan semua operasi (hapus, tambah, simpan) di background context
             try backgroundContext.delete(model: Ingredient.self)
             
             for dto in dtos {
@@ -61,10 +67,8 @@ class PersistenceController {
                 backgroundContext.insert(newIngredient)
             }
             
-            // Simpan perubahan
             try backgroundContext.save()
-            
-            print("Successfully reloaded \(dtos.count) ingredients into the database.")
+            print("Successfully reloaded \(dtos.count) ingredients.")
             
         } catch {
             fatalError("Failed to reload database from JSON: \(error)")
