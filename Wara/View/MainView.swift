@@ -114,7 +114,7 @@ struct MainView: View {
                             ? "bolt.fill" : "bolt.slash.fill"
                         )
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                     }
                     .frame(width: 64, height: 64)
                     .background(.black.opacity(0.2))
