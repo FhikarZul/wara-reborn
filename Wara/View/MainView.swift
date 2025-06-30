@@ -114,7 +114,7 @@ struct MainView: View {
                             ? "bolt.fill" : "bolt.slash.fill"
                         )
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                     }
                     .frame(width: 64, height: 64)
                     .background(.black.opacity(0.2))
@@ -142,7 +142,7 @@ struct MainView: View {
                 ErrorView(message: message, onDismiss: viewModel.resetState)
             }
         }
-        .background(.white)
+        .background(.black)
         .animation(.bouncy, value: viewModel.isIngredientLabelDectected)
         .onChange(of: selectedPhotoItem) {
             Task {
