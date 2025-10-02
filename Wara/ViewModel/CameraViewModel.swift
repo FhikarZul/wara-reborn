@@ -16,6 +16,7 @@ class CameraViewModel: ObservableObject {
         case idle
         case capturing
         case processing
+        case preview([TextRecognitionResult], UIImage, DetectionResult)
         case success(DetectionResult)
         case error(String)
     }
@@ -71,11 +72,14 @@ class CameraViewModel: ObservableObject {
             }
             
             do {
-                let extractedText = try await ocrService.extractKoreanText(
+                let extractedTextsWithBoxes = try await ocrService.extractKoreanTextWithBoxes(
                     from: image
                 )
-                let result = await detectionService.analyzeIngredients(text: extractedText)
-                self.scanState = .success(result)
+                let combinedText = extractedTextsWithBoxes.map { $0.text }.joined(separator: " ")
+                
+                let result = await detectionService.analyzeIngredients(text: combinedText)
+                
+                self.scanState = .preview(extractedTextsWithBoxes, image, result)
             } catch let ocrError as OCRError {
                 self.scanState = .error(mapOcrErrorToString(ocrError))
             } catch {
