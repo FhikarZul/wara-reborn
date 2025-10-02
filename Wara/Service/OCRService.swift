@@ -7,10 +7,17 @@
 
 import Vision
 import UIKit
+import CoreGraphics
 
 enum OCRError: Error {
     case imageProcessingFailed
     case noTextFound
+}
+
+struct TextRecognitionResult : Identifiable {
+    let id = UUID()
+    let text: String
+    let boundingBox: CGRect
 }
 
 class OCRService {
@@ -63,5 +70,45 @@ class OCRService {
             .joined(separator: "\n")
         
         return recognizedText
+    }
+    
+    func extractKoreanTextWithBoxes(from image: UIImage) async throws -> [TextRecognitionResult] {
+        guard let cgImage = image.cgImage else {
+                throw OCRError.imageProcessingFailed
+            }
+            
+            let request = VNRecognizeTextRequest()
+            request.recognitionLevel = .accurate
+            request.recognitionLanguages = ["ko-KR"]
+            request.usesLanguageCorrection = true
+
+            let requestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up) // Pastikan orientasi benar
+            
+            var results: [TextRecognitionResult] = []
+
+            do {
+                try requestHandler.perform([request])
+                
+                guard let observations = request.results, !observations.isEmpty else {
+                    throw OCRError.noTextFound
+                }
+                
+                for observation in observations {
+                    guard let topCandidate = observation.topCandidates(1).first else { continue }
+                    
+                    let box = observation.boundingBox
+                    
+                    let result = TextRecognitionResult(
+                        text: topCandidate.string,
+                        boundingBox: box
+                    )
+                    results.append(result)
+                }
+                
+                return results
+                
+            } catch {
+                throw error
+            }
     }
 }
