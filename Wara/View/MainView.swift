@@ -27,7 +27,7 @@ struct MainView: View {
         switch viewModel.scanState {
         case .idle, .capturing:
             return false
-        case .processing, .success, .error:
+        case .processing, .preview, .success, .error:
             return true
         }
     }
@@ -136,6 +136,15 @@ struct MainView: View {
                 EmptyView()
             case .processing:
                 ProcessingView()
+            case .preview(let recognizedTexts, let image, let analyzeResult):
+                HighlightView(
+                    recognizedTexts: recognizedTexts,
+                    originalImage: image,
+                    onResult: {
+                        viewModel.scanState = .success(analyzeResult)
+                    },
+                    onDismiss: viewModel.resetState,
+                )
             case .success(let result):
                 ResultView(result: result, onDismiss: viewModel.resetState)
             case .error(let message):
