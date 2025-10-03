@@ -1,7 +1,6 @@
 import SwiftUI
 import UIKit
 
-
 struct HighlightView: View {
     let recognizedTexts: [TextRecognitionResult]
     let originalImage: UIImage
@@ -42,7 +41,7 @@ struct HighlightView: View {
                                             .position(x: rect.midX, y: rect.midY)
                                     }
                                     
-                                    // Text Later
+                                    // Text Layer
                                     ForEach(recognizedTexts) { textData in
                                         let normalizedBox = textData.boundingBox
                                         let rect = CGRect(
@@ -60,6 +59,7 @@ struct HighlightView: View {
                                             .padding(1)
                                             .frame(width: rect.width, height: rect.height)
                                             .position(x: rect.midX, y: rect.midY)
+                                            .textSelection(.enabled)
                                     }
                                 }
                             }
@@ -87,6 +87,7 @@ struct HighlightView: View {
                     )
                 }
             }
+            .background(Color.black)
         }
         .navigationViewStyle(.stack)
         .onAppear {
