@@ -4,7 +4,7 @@
 //
 //  Created by Immanuel Sitepu on 22/06/25.
 //
-
+import UIKit
 import Combine
 import SwiftData
 import SwiftUI
@@ -66,20 +66,24 @@ class CameraViewModel: ObservableObject {
         scanState = .processing
         
         Task {
-            // Berhenti menerima frame kamera SEBELUM mwmulai analisis
             if cameraManager != nil {
                 cameraManager!.stopSession()
             }
             
             do {
+                guard let normalizedImage = image.normalizedImage() else {
+                    self.scanState = .error("Gagal menormalkan gambar.")
+                    return
+                }
+                
                 let extractedTextsWithBoxes = try await ocrService.extractKoreanTextWithBoxes(
-                    from: image
+                    from: normalizedImage
                 )
                 let combinedText = extractedTextsWithBoxes.map { $0.text }.joined(separator: " ")
                 
                 let result = await detectionService.analyzeIngredients(text: combinedText)
                 
-                self.scanState = .preview(extractedTextsWithBoxes, image, result)
+                self.scanState = .preview(extractedTextsWithBoxes, normalizedImage, result)
             } catch let ocrError as OCRError {
                 self.scanState = .error(mapOcrErrorToString(ocrError))
             } catch {
@@ -132,5 +136,18 @@ class CameraViewModel: ObservableObject {
         case .noTextFound:
             return "Tidak ada teks yang dapat dideteksi."
         }
+    }
+}
+
+extension UIImage {
+    func normalizedImage() -> UIImage? {
+        guard imageOrientation != .up else { return self }
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        
+        draw(in: CGRect(origin: .zero, size: size))
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
