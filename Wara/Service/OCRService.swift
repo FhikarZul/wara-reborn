@@ -14,10 +14,14 @@ enum OCRError: Error {
     case noTextFound
 }
 
-struct TextRecognitionResult : Identifiable {
+struct TextRecognitionResult: Identifiable {
     let id = UUID()
     let text: String
     let boundingBox: CGRect
+    let topLeft: CGPoint
+    let topRight: CGPoint
+    let bottomLeft: CGPoint
+    let bottomRight: CGPoint
 }
 
 class OCRService {
@@ -74,41 +78,52 @@ class OCRService {
     
     func extractKoreanTextWithBoxes(from image: UIImage) async throws -> [TextRecognitionResult] {
         guard let cgImage = image.cgImage else {
-                throw OCRError.imageProcessingFailed
-            }
-            
-            let request = VNRecognizeTextRequest()
-            request.recognitionLevel = .accurate
-            request.recognitionLanguages = ["ko-KR"]
-            request.usesLanguageCorrection = true
+            throw OCRError.imageProcessingFailed
+        }
 
-            let requestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up) // Pastikan orientasi benar
-            
-            var results: [TextRecognitionResult] = []
+        // Setup request
+        let request = VNRecognizeTextRequest()
+        request.recognitionLevel = .accurate
+        request.recognitionLanguages = ["ko-KR"] // Bahasa Korea
+        request.usesLanguageCorrection = true
 
-            do {
-                try requestHandler.perform([request])
-                
-                guard let observations = request.results, !observations.isEmpty else {
-                    throw OCRError.noTextFound
-                }
-                
-                for observation in observations {
-                    guard let topCandidate = observation.topCandidates(1).first else { continue }
-                    
-                    let box = observation.boundingBox
-                    
-                    let result = TextRecognitionResult(
-                        text: topCandidate.string,
-                        boundingBox: box
-                    )
-                    results.append(result)
-                }
-                
-                return results
-                
-            } catch {
-                throw error
+        // Handler
+        let requestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up)
+        var results: [TextRecognitionResult] = []
+
+        do {
+            try requestHandler.perform([request])
+
+            guard let observations = request.results, !observations.isEmpty else {
+                throw OCRError.noTextFound
             }
+
+            for observation in observations {
+                guard let topCandidate = observation.topCandidates(1).first else { continue }
+
+                // Ambil empat titik koordinat dari VNRecognizedTextObservation
+                let topLeft = observation.topLeft
+                let topRight = observation.topRight
+                let bottomLeft = observation.bottomLeft
+                let bottomRight = observation.bottomRight
+
+                let box = observation.boundingBox
+
+                let result = TextRecognitionResult(
+                    text: topCandidate.string,
+                    boundingBox: box,
+                    topLeft: topLeft,
+                    topRight: topRight,
+                    bottomLeft: bottomLeft,
+                    bottomRight: bottomRight
+                )
+
+                results.append(result)
+            }
+
+            return results
+        } catch {
+            throw error
+        }
     }
 }

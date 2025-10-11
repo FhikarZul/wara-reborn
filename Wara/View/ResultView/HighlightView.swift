@@ -23,47 +23,48 @@ struct HighlightView: View {
                                 let scale = min(viewSize.width / imageSize.width, viewSize.height / imageSize.height)
                                 let offsetX = (viewSize.width - imageSize.width * scale) / 2
                                 let offsetY = (viewSize.height - imageSize.height * scale) / 2
-                                
+
                                 ZStack {
-                                    // Background Layer
                                     ForEach(recognizedTexts) { textData in
-                                        let normalizedBox = textData.boundingBox
-                                        let rect = CGRect(
-                                            x: normalizedBox.origin.x * imageSize.width * scale + offsetX,
-                                            y: (1 - normalizedBox.origin.y - normalizedBox.size.height) * imageSize.height * scale + offsetY,
-                                            width: normalizedBox.size.width * imageSize.width * scale,
-                                            height: normalizedBox.size.height * imageSize.height * scale
+                                        let points = [
+                                            textData.topLeft,
+                                            textData.topRight,
+                                            textData.bottomRight,
+                                            textData.bottomLeft
+                                        ]
+
+                                        let convertedPoints = points.map { point -> CGPoint in
+                                            CGPoint(
+                                                x: point.x * imageSize.width * scale + offsetX,
+                                                y: (1 - point.y) * imageSize.height * scale + offsetY
+                                            )
+                                        }
+
+                                        Path { path in
+                                            path.move(to: convertedPoints[0])
+                                            path.addLine(to: convertedPoints[1])
+                                            path.addLine(to: convertedPoints[2])
+                                            path.addLine(to: convertedPoints[3])
+                                            path.closeSubpath()
+                                        }
+                                        .fill(Color.blue.opacity(0.25))
+                                        .overlay(
+                                            Path { path in
+                                                path.move(to: convertedPoints[0])
+                                                path.addLine(to: convertedPoints[1])
+                                                path.addLine(to: convertedPoints[2])
+                                                path.addLine(to: convertedPoints[3])
+                                                path.closeSubpath()
+                                            }
+                                                .stroke(Color.blue.opacity(0.25), lineWidth: 1)
                                         )
-                                        
-                                        RoundedRectangle(cornerRadius: 5)
-                                            .fill(Color.white)
-                                            .frame(width: rect.width, height: rect.height)
-                                            .position(x: rect.midX, y: rect.midY)
-                                    }
-                                    
-                                    // Text Layer
-                                    ForEach(recognizedTexts) { textData in
-                                        let normalizedBox = textData.boundingBox
-                                        let rect = CGRect(
-                                            x: normalizedBox.origin.x * imageSize.width * scale + offsetX,
-                                            y: (1 - normalizedBox.origin.y - normalizedBox.size.height) * imageSize.height * scale + offsetY,
-                                            width: normalizedBox.size.width * imageSize.width * scale,
-                                            height: normalizedBox.size.height * imageSize.height * scale
-                                        )
-                                        
-                                        Text(textData.text)
-                                            .foregroundColor(.black)
-                                            .font(.system(size: rect.height * 0.8))
-                                            .minimumScaleFactor(0.2)
-                                            .lineLimit(1)
-                                            .padding(1)
-                                            .frame(width: rect.width, height: rect.height)
-                                            .position(x: rect.midX, y: rect.midY)
-                                            .textSelection(.enabled)
                                     }
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
                             }
+
                         )
+                        .shadow(radius: 5)
                 }
                 
                 VStack {
