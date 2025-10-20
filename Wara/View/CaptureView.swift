@@ -8,7 +8,9 @@
 import PhotosUI
 import SwiftUI
 
-struct MainView: View {
+struct CaptureView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: CameraViewModel
     
@@ -36,14 +38,30 @@ struct MainView: View {
         ZStack {
             CameraView(viewModel: viewModel)
                 .ignoresSafeArea()
-            
+           
             VStack {
-                HStack {
+                ZStack {
+                    // Back button
+                    HStack {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 22, weight: .semibold))
+                                .foregroundColor(.white)
+                                .padding(12)
+                                .background(Color.black.opacity(0.5))
+                                .clipShape(Circle())
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal, 16)
+                    
                     HStack(alignment: .center) {
                         if viewModel.isIngredientLabelDectected {
                             Image(systemName: "checkmark.circle.fill")
                         }
-                        
+
                         Text(
                             viewModel.isIngredientLabelDectected
                             ? "Label komposisi ditemukan"
@@ -51,7 +69,6 @@ struct MainView: View {
                         )
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
-                        
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
@@ -68,7 +85,8 @@ struct MainView: View {
                         + (viewModel.isIngredientLabelDectected
                            ? "detected" : "scanning")
                     )
-                }.frame(height: 80)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 80)
                 
                 Spacer()
                 
@@ -169,5 +187,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    CaptureView()
 }
