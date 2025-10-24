@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E217DA362EABCD1A00297558 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E217DA352EABCD1A00297558 /* Alamofire */; };
+		E217DA382EABCD1A00297558 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = E217DA372EABCD1A00297558 /* AlamofireDynamic */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		90E2EC112DFBC99B00C31B38 /* Wara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E217DA362EABCD1A00297558 /* Alamofire in Frameworks */,
+				E217DA382EABCD1A00297558 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = Wara;
 			packageProductDependencies = (
+				E217DA352EABCD1A00297558 /* Alamofire */,
+				E217DA372EABCD1A00297558 /* AlamofireDynamic */,
 			);
 			productName = Wara;
 			productReference = 90E2EC112DFBC99B00C31B38 /* Wara.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 90E2EC082DFBC99B00C31B38;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 90E2EC122DFBC99B00C31B38 /* Products */;
 			projectDirPath = "";
@@ -266,7 +278,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = 63WZLDK2RP;
+				DEVELOPMENT_TEAM = CCAT77PVFX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Wara/Info.plist;
@@ -305,7 +317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = 63WZLDK2RP;
+				DEVELOPMENT_TEAM = CCAT77PVFX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Wara/Info.plist;
@@ -359,6 +371,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E217DA352EABCD1A00297558 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		E217DA372EABCD1A00297558 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 90E2EC092DFBC99B00C31B38 /* Project object */;
 }

@@ -5,8 +5,7 @@
 //  Created by Meow on 21/10/25.
 //
 
-struct UserModel: Codable, Identifiable {
-    let id: Int
+struct CreateUserModel: Encodable {
     let title: String
     let body: String
 }

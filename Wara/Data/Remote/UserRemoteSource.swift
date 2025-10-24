@@ -1,28 +1,34 @@
 //
-//  UserService.swift
+//  CategoryRemoteSource.swift
 //  Wara
 //
-//  Created by Meow on 21/10/25.
+//  Created by Meow on 24/10/25.
 //
 
-final class UserRemoteSource {
-    private let apiService: APIService
+import Foundation
+import Alamofire
+
+class UserRemoteSource {
+    static let shared = UserRemoteSource()
+    private init() {}
     
-    init(apiService: APIService = APIClient()) {
-            self.apiService = apiService
-        }
+    private let httpClient = HttpClient.shared
+    private let baseURL = "https://jsonplaceholder.typicode.com"
 
-    func fetchUser(id: Int) async throws -> User {
-        return try await apiService.request(
-            UserEndpoint.fetchUser(id: id),
-            responseType: User.self
-        )
+    func fetchUsers(completion: @escaping (Result<[UserModel], NetworkError>) -> Void) {
+        let url = "\(baseURL)/posts"
+        httpClient.request(url: url,
+                               method: .get,
+                               parameters: nil as UserModel?,
+                               completion: completion)
     }
-
-    func registerUser(name: String, email: String) async throws -> User {
-        return try await apiService.request(
-            UserEndpoint.createUser(name: name, email: email),
-            responseType: User.self
-        )
+    
+    func createUser(payload: CreateUserModel, completion: @escaping (Result<UserModel, NetworkError>) -> Void) {
+        let url = "\(baseURL)/posts"
+        
+        httpClient.request(url: url,
+                           method: .post,
+                           parameters: payload,
+                           completion: completion)
     }
 }
