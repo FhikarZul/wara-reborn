@@ -47,7 +47,8 @@ struct CaptureView: View {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
-                                .font(.system(size: 22, weight: .semibold))
+                                .font(.title3)
+                                .fontWeight(.semibold)
                                 .foregroundColor(.white)
                                 .padding(12)
                                 .background(Color.black.opacity(0.5))

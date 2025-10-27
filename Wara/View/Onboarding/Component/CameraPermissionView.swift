@@ -24,7 +24,7 @@ struct CameraPermissionView: View {
                 Spacer()
                 
                 Image(systemName: "camera")
-                    .font(.system(size: 56))
+                    .font(.largeTitle)
                 
                 VStack (spacing: 16) {
                     Text("Akses kamera dibutuhkan")
