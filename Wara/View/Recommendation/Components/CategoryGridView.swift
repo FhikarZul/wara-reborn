@@ -7,48 +7,67 @@
 import SwiftUI
 
 struct CategoryGridView: View {
-    private let categories: [CategoryModel] = [
-        .init(name: "Snacks", icon: "photo"),
-        .init(name: "Drinks", icon: "photo"),
-        .init(name: "Noodles", icon: "photo"),
-        .init(name: "Sauces", icon: "photo"),
-        .init(name: "Meals", icon: "photo"),
-        .init(name: "Protein", icon: "photo"),
-        .init(name: "Veggies", icon: "photo"),
-        .init(name: "Health", icon: "photo")
-    ]
+    @StateObject private var viewModel = CategoryViewModel()
     
-    // 2 kolom grid
     private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.flexible(), spacing: 16, alignment: .top),
+        GridItem(.flexible(), spacing: 16, alignment: .top),
+        GridItem(.flexible(), spacing: 16, alignment: .top),
+        GridItem(.flexible(), spacing: 16, alignment: .top)
     ]
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(categories) { category in
-                VStack(spacing: 6) {
-                    ZStack {
-                        Color(.systemGray5)
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(16)
-                        
-                        Image(systemName: category.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 36, height: 36)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Text(category.name)
+        VStack(alignment: .leading) {
+            if viewModel.isLoading {
+                HStack {
+                    ProgressView()
+                    Text("Memuat kategori...")
                         .font(.subheadline)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.horizontal)
+            } else if let error = viewModel.errorMessage {
+                HStack {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.red)
+                    Spacer()
+                    Button("Coba Lagi") {
+                        viewModel.loadCategories()
+                    }
+                    .font(.subheadline)
+                }
+                .padding(.horizontal)
+            }
+            
+            LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                ForEach(viewModel.categories) { category in
+                    VStack(alignment: .center, spacing: 6) {
+                        ZStack {
+                            Color(.systemGray5)
+                                .frame(width: 80, height: 80)
+                                .cornerRadius(16)
+                            
+                            Image(systemName: category.icon)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 36, height: 36)
+                                .foregroundColor(.gray)
+                        }
+                        
+                        Text(category.name)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.85)
+                            .foregroundColor(.primary)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
+            .padding()
         }
-        .padding()
+        .onAppear { viewModel.loadCategories() }
     }
 }
 

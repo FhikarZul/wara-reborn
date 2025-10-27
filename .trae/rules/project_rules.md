@@ -72,3 +72,11 @@ Text("Long product description...")
 
 ---
 Note: This guide standardizes `.font(.subheadline)` for labels/control text. Use `.body` for primary content, and choose other styles to match the established design hierarchy.
+
+---
+
+## File Headers — Author Tag
+
+- For new files, set the author line to: `Created by Meow on <DD/MM/YY>`.
+- Keep existing author lines as-is unless you are the original author and updating the file substantially.
+- Date format follows the existing convention used across the project.
