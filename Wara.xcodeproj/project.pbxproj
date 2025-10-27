@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E217DA362EABCD1A00297558 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E217DA352EABCD1A00297558 /* Alamofire */; };
-		E217DA382EABCD1A00297558 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = E217DA372EABCD1A00297558 /* AlamofireDynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E217DA362EABCD1A00297558 /* Alamofire in Frameworks */,
-				E217DA382EABCD1A00297558 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,15 +81,14 @@
 			fileSystemSynchronizedGroups = (
 				90E2EC132DFBC99B00C31B38 /* Wara */,
 			);
-			name = Wara;
-			packageProductDependencies = (
-				E217DA352EABCD1A00297558 /* Alamofire */,
-				E217DA372EABCD1A00297558 /* AlamofireDynamic */,
-			);
-			productName = Wara;
-			productReference = 90E2EC112DFBC99B00C31B38 /* Wara.app */;
-			productType = "com.apple.product-type.application";
-		};
+		name = Wara;
+		packageProductDependencies = (
+			E217DA352EABCD1A00297558 /* Alamofire */,
+		);
+		productName = Wara;
+		productReference = 90E2EC112DFBC99B00C31B38 /* Wara.app */;
+		productType = "com.apple.product-type.application";
+	};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -388,11 +385,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		E217DA372EABCD1A00297558 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E217DA342EABCD1A00297558 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
