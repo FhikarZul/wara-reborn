@@ -6,26 +6,17 @@
 //
 
 import Foundation
-import Alamofire
 
-struct ResponseDTO<T: Codable>: Codable {
+struct ResponseDTO<T: Decodable>: Decodable {
     let data: T
-    let meta: MetaDTO?
 }
 
-struct MetaDTO: Codable {
-    let total: Int?
-    let page: Int?
-    let limit: Int?
-}
-
-// Payload sesuai contoh: { "data": { "items": [ ... ] } }
-struct CategoriesPayloadDTO: Codable {
+struct CategoriesPayloadDTO: Decodable {
     let items: [CategoryItemDTO]
 }
 
 // Item kategori sesuai field backend
-struct CategoryItemDTO: Codable {
+struct CategoryItemDTO: Decodable {
     let id: String
     let parentId: String?
     let koreanName: String
