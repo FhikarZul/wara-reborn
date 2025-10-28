@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecommendationView: View {
+struct FoodView: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading, spacing: 0){
@@ -42,5 +42,5 @@ struct RecommendationView: View {
 }
 
 #Preview {
-    RecommendationView()
+    FoodView()
 }

@@ -1,0 +1,50 @@
+//
+//  CustomSegmentedControl.swift
+//  Wara
+//
+//  Created by Meow on 29/10/25.
+//
+
+import SwiftUI
+
+struct CustomSegmentedControl: View {
+    @Binding var selectedTab: TabType
+
+    enum TabType: String, CaseIterable {
+        case favorite = "Favorite Product"
+        case scanned = "Scanned Product"
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(TabType.allCases, id: \.self) { tab in
+                Button(action: {
+                    withAnimation(.spring()) {
+                        selectedTab = tab
+                    }
+                }) {
+                    Text(tab.rawValue)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(selectedTab == tab ? .black : .gray)
+                        .frame(maxWidth: .infinity, maxHeight: 30)
+                        .background(
+                            Group {
+                                if selectedTab == tab {
+                                        Color("green2")
+                                } else {
+                                        Color.clear
+                                }
+                            }
+                        )
+                        .clipShape(Capsule())
+                }
+            }
+        }
+        .padding(4)
+        .background(Color(.systemGray6))
+        .clipShape(Capsule())
+        .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 1)
+    }
+}
+
+

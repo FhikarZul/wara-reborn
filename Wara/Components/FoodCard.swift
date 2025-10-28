@@ -14,6 +14,7 @@ struct FoodCard: View {
     let likes: Int
     let isLike: Bool
     let isHalalKMF: Bool
+    let width: CGFloat?
     let onFavoriteTapped: (() -> Void)?
     
     var body: some View {
@@ -23,7 +24,7 @@ struct FoodCard: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.gray.opacity(0.1))
                     .overlay(
-                        Image("")
+                        Image("slider3")
                             .resizable()
                             .scaledToFit()
                             .padding(12)
@@ -107,7 +108,8 @@ struct FoodCard: View {
         )
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-        .frame(width: 160)
+        .frame(width: (width ?? 160).isFinite && (width ?? 160) > 0 ? (width ?? 160) : 160)
+
     }
 }
 
@@ -120,6 +122,7 @@ struct FoodCard: View {
         likes: 1020,
         isLike: true,
         isHalalKMF: true,
+        width: nil,
         onFavoriteTapped: {
             print("Favorited!")
         }

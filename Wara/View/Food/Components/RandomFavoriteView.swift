@@ -29,6 +29,7 @@ struct RandomFavoriteView: View {
                         likes: 1020,
                         isLike: true,
                         isHalalKMF: true,
+                        width: nil,
                         onFavoriteTapped: {
                             print("Favorited!")
                         }
@@ -41,6 +42,7 @@ struct RandomFavoriteView: View {
                         likes: 1020,
                         isLike: true,
                         isHalalKMF: true,
+                        width: nil,
                         onFavoriteTapped: {
                             print("Favorited!")
                         }
@@ -53,6 +55,7 @@ struct RandomFavoriteView: View {
                         likes: 1020,
                         isLike: true,
                         isHalalKMF: true,
+                        width: nil,
                         onFavoriteTapped: {
                             print("Favorited!")
                         }

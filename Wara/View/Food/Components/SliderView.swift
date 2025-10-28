@@ -11,21 +11,25 @@ struct SliderModel: Identifiable {
     let id = UUID()
     let title: String
     let color: Color
+    let image: String
 }
 
 struct SliderView: View {
     let sliders: [SliderModel] = [
         SliderModel(
             title: "Wanna Feels Like Korean? Try Local Favorit",
-            color: .yellow
+            color: .yellow,
+            image: "slider1"
         ),
         SliderModel(
             title: "Tasty Memories to Go! Find Korea’s most loved food souvenirs here",
-            color: .green
+            color: .green,
+            image: "slider2"
         ),
         SliderModel(
             title: "Everyday Essentials! Quick bites, simple meals",
-            color: .orange
+            color: .orange,
+            image: "slider3"
         )
     ]
     
@@ -34,23 +38,24 @@ struct SliderView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $currentIndex) {
-                ForEach(Array(sliders.enumerated()), id: \.offset) { index, promo in
+                ForEach(Array(sliders.enumerated()), id: \.offset) { index, slider in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(promo.title)
+                            Text(slider.title)
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.black)
                         }
                         Spacer()
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
+                        Image(slider.image)
+                            .resizable()
+                            .scaledToFit()
                             .frame(width: 90, height: 90)
-                            .cornerRadius(8)
+                       
                     }
                     .padding(.top, 50)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, maxHeight: 180)
-                    .background(promo.color.opacity(0.7))
+                    .background(slider.color.opacity(0.7))
                     .tag(index)
                 }
                 

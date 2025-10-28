@@ -13,21 +13,21 @@ struct BaseView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            RecommendationView()
+            FoodView()
                 .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Recommendation")
+                    Image(systemName: "fork.knife")
+                    Text("Food")
                 }
                 .tag(0)
 
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Text("")
                 .tabItem {
                     Image(systemName: "camera.fill")
                     Text("Scan")
                 }
                 .tag(1)
 
-            Text("Favorite Page")
+            FavoriteView()
                 .tabItem {
                     Image(systemName: "heart.fill")
                     Text("Favorite")
@@ -47,7 +47,6 @@ struct BaseView: View {
     }
 }
 
-// MARK: - Preview
 #Preview {
     BaseView()
 }
