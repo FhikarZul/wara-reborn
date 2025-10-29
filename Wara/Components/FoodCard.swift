@@ -108,7 +108,7 @@ struct FoodCard: View {
         )
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-        .frame(width: (width ?? 160).isFinite && (width ?? 160) > 0 ? (width ?? 160) : 160)
+        .frame(width: (width ?? 160))
 
     }
 }

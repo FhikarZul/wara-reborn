@@ -12,37 +12,39 @@ struct BaseView: View {
     @State private var showCamera: Bool = false
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            FoodView()
-                .tabItem {
-                    Image(systemName: "fork.knife")
-                    Text("Food")
-                }
-                .tag(0)
+        NavigationStack{
+            TabView(selection: $selectedTab) {
+                FoodView()
+                    .tabItem {
+                        Image(systemName: "fork.knife")
+                        Text("Food")
+                    }
+                    .tag(0)
 
-            Text("")
-                .tabItem {
-                    Image(systemName: "camera.fill")
-                    Text("Scan")
-                }
-                .tag(1)
+                Text("")
+                    .tabItem {
+                        Image(systemName: "camera.fill")
+                        Text("Scan")
+                    }
+                    .tag(1)
 
-            FavoriteView()
-                .tabItem {
-                    Image(systemName: "heart.fill")
-                    Text("Favorite")
-                }
-                .tag(2)
-        }
-        .accentColor(Color("primaryblue"))
-        .onChange(of: selectedTab) {
-            if selectedTab == 1 {
-                showCamera = true
-                selectedTab = 0
+                FavoriteView()
+                    .tabItem {
+                        Image(systemName: "heart.fill")
+                        Text("Favorite")
+                    }
+                    .tag(2)
             }
-        }
-        .fullScreenCover(isPresented: $showCamera) {
-            CaptureView()
+            .accentColor(Color("primaryblue"))
+            .onChange(of: selectedTab) {
+                if selectedTab == 1 {
+                    showCamera = true
+                    selectedTab = 0
+                }
+            }
+            .fullScreenCover(isPresented: $showCamera) {
+                CaptureView()
+            }
         }
     }
 }

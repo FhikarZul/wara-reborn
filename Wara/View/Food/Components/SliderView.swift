@@ -19,7 +19,7 @@ struct SliderView: View {
         SliderModel(
             title: "Wanna Feels Like Korean? Try Local Favorit",
             color: .yellow,
-            image: "slider1"
+            image: "girl"
         ),
         SliderModel(
             title: "Tasty Memories to Go! Find Korea’s most loved food souvenirs here",

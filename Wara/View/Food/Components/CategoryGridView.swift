@@ -42,27 +42,31 @@ struct CategoryGridView: View {
             
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(viewModel.categories) { category in
-                    VStack(alignment: .center, spacing: 6) {
-                        ZStack {
-                            Color(.systemGray5)
-                                .frame(width: 80, height: 80)
-                                .cornerRadius(16)
+                    NavigationLink{
+                        FoodDetailView(id: category.id.uuidString, title: category.name)
+                    } label: {
+                        VStack(alignment: .center, spacing: 6) {
+                            ZStack {
+                                Color(.systemGray5)
+                                    .frame(width: 80, height: 80)
+                                    .cornerRadius(16)
+                                
+                                Image(systemName: category.icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 36, height: 36)
+                                    .foregroundColor(.gray)
+                            }
                             
-                            Image(systemName: category.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 36, height: 36)
-                                .foregroundColor(.gray)
+                            Text(category.name)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.85)
+                                .foregroundColor(.primary)
                         }
-                        
-                        Text(category.name)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .minimumScaleFactor(0.85)
-                            .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
                 }
             }
             .padding()
