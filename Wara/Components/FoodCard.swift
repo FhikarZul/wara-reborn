@@ -18,6 +18,15 @@ struct FoodCard: View {
     let onFavoriteTapped: (() -> Void)?
     
     var body: some View {
+        // Safely resolve width: treat non-finite/negative as default, and
+        // support .infinity via maxWidth instead of fixed width.
+        let isInfiniteWidth = width?.isInfinite == true
+        let resolvedWidth: CGFloat = {
+            guard let w = width else { return 160 }
+            if w.isNaN || !w.isFinite || w <= 0 { return 160 }
+            return w
+        }()
+        
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 // Product image
@@ -71,20 +80,20 @@ struct FoodCard: View {
             // Product information
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.headline)
                     .foregroundColor(.black)
                 
                 Text(subtitle)
-                    .font(.system(size: 14))
+                    .font(.subheadline)
                     .foregroundColor(.gray)
                 
                 // Label
                 HStack(spacing: 4) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(Color("green1"))
-                        .font(.system(size: 13))
+                        .font(.caption)
                     Text(label)
-                        .font(.system(size: 13))
+                        .font(.caption)
                         .foregroundColor(Color("green1"))
                 }
                 
@@ -92,9 +101,9 @@ struct FoodCard: View {
                 HStack(spacing: 4) {
                     Image(systemName: "heart.fill")
                         .foregroundColor(.gray)
-                        .font(.system(size: 13))
+                        .font(.caption)
                     Text("\(likes)")
-                        .font(.system(size: 13))
+                        .font(.caption)
                         .foregroundColor(.gray)
                 }
             }
@@ -108,7 +117,8 @@ struct FoodCard: View {
         )
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-        .frame(width: (width ?? 160))
+        .frame(maxWidth: isInfiniteWidth ? .infinity : nil)
+        .frame(width: isInfiniteWidth ? nil : resolvedWidth)
 
     }
 }
