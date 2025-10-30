@@ -14,6 +14,11 @@ struct WaraApp: App {
     
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
+    init() {
+        // Initialize user at app launch
+        UserManager.shared.ensureUserInitialized()
+    }
+
     var body: some Scene {
         WindowGroup {
             if hasCompletedOnboarding {

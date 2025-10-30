@@ -41,11 +41,32 @@ class CategoryRemoteSource {
     private let httpClient = HttpClient.shared
 
     private var baseURL: String {
-        if let url = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String, !url.isEmpty {
-            return url
+        let schemeRaw = (Bundle.main.object(forInfoDictionaryKey: "API_SCHEME") as? String) ?? ""
+        let hostRaw = (Bundle.main.object(forInfoDictionaryKey: "API_HOST") as? String) ?? ""
+        let scheme = schemeRaw.trimmingCharacters(in: .whitespacesAndNewlines)
+        let hostVal = hostRaw.trimmingCharacters(in: .whitespacesAndNewlines)
+        precondition(!scheme.isEmpty, "API_SCHEME missing. Set via xcconfig and map to target configuration.")
+        precondition(!hostVal.isEmpty, "API_HOST missing. Set via xcconfig and map to target configuration.")
+        precondition(scheme == "http" || scheme == "https", "API_SCHEME must be 'http' or 'https'.")
+
+        // Parse optional port if provided in host (e.g., localhost:4041)
+        var host = hostVal
+        var port: Int? = nil
+        if let colonIndex = host.firstIndex(of: ":") {
+            let hostname = String(host[..<colonIndex])
+            let portStr = String(host[host.index(after: colonIndex)...])
+            host = hostname
+            if let p = Int(portStr) { port = p }
         }
-        // Fallback untuk pengembangan jika key belum di-set
-        return "https://example.com/api"
+
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
+        components.port = port
+        guard let url = components.url else {
+            preconditionFailure("Invalid API_SCHEME/API_HOST combination.")
+        }
+        return url.absoluteString
     }
 
     // Flatten hasil ke array items agar mudah dipakai layer di atasnya

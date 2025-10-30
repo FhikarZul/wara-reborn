@@ -95,7 +95,7 @@
 		90E2EC092DFBC99B00C31B38 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
@@ -149,6 +149,8 @@
 /* Begin XCBuildConfiguration section */
 		90E2EC1C2DFBC99B00C31B38 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 90E2EC132DFBC99B00C31B38 /* Wara */;
+			baseConfigurationReferenceRelativePath = Config/Local.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -213,6 +215,8 @@
 		};
 		90E2EC1D2DFBC99B00C31B38 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 90E2EC132DFBC99B00C31B38 /* Wara */;
+			baseConfigurationReferenceRelativePath = Config/Release.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -270,6 +274,8 @@
 		};
 		90E2EC1F2DFBC99B00C31B38 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 90E2EC132DFBC99B00C31B38 /* Wara */;
+			baseConfigurationReferenceRelativePath = Config/Local.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -309,6 +315,8 @@
 		};
 		90E2EC202DFBC99B00C31B38 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 90E2EC132DFBC99B00C31B38 /* Wara */;
+			baseConfigurationReferenceRelativePath = Config/Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -356,7 +364,7 @@
 				90E2EC1D2DFBC99B00C31B38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		90E2EC1E2DFBC99B00C31B38 /* Build configuration list for PBXNativeTarget "Wara" */ = {
 			isa = XCConfigurationList;
@@ -365,7 +373,7 @@
 				90E2EC202DFBC99B00C31B38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

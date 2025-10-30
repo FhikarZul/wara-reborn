@@ -1,0 +1,11 @@
+// Release.xcconfig
+// Wara
+// Created by Meow on 30/10/25
+
+// Define scheme & host
+API_SCHEME = https
+API_HOST = api.wara.web.id
+
+// (Optional) Keep API_BASE_URL if needed elsewhere
+SLASH = /
+API_BASE_URL = $(API_SCHEME):$(SLASH)/$(API_HOST)
