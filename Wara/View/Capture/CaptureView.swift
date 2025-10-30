@@ -165,7 +165,7 @@ struct CaptureView: View {
                     onDismiss: viewModel.resetState
                 )
             case .success(let result):
-                ResultView(result: result, onDismiss: viewModel.resetState)
+                ScanResultView(onDismiss: viewModel.resetState)
             case .error(let message):
                 ErrorView(message: message, onDismiss: viewModel.resetState)
             }

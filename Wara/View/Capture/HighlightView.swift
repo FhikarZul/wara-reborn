@@ -71,15 +71,21 @@ struct HighlightView: View {
                     Spacer()
                     
                     VStack {
-                        Button("Cek Bahan Berbahaya") {
-                            onResult()
-                        }
-                        .buttonStyle(PrimaryButtonStyle(backgroundColor: .orange))
-                        
-                        Button("Scan Kembali") {
+                        Button("Re-scan") {
                             onDismiss()
                         }
-                        .buttonStyle(PrimaryButtonStyle(backgroundColor: Color("primaryblue", bundle: nil)))
+                        .buttonStyle(PrimaryButtonStyle(
+                            backgroundColor: .white,
+                            hasBorder: true,
+                            borderColor: .blue,
+                        ))
+                        
+                        Button("Check Ingredient") {
+                            onResult()
+                        }
+                        .buttonStyle(PrimaryButtonStyle(
+                            backgroundColor: Color("primaryblue")
+                        ))
                     }
                     .padding()
                     .background(
@@ -112,18 +118,5 @@ extension UIImage {
     }
 }
 
-// Custom button style (remains the same)
-struct PrimaryButtonStyle: ButtonStyle {
-    var backgroundColor: Color
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(backgroundColor)
-            .cornerRadius(12)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-    }
-}
+
 

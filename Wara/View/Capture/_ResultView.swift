@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResultView: View {
+struct _ResultView: View {
     let result: DetectionResult
     let onDismiss: () -> Void
     @State private var showContent = false
@@ -269,7 +269,7 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(
+    _ResultView(
         result: DetectionResult(
             status: .tidakAman,
             foundIngredients: [
