@@ -6,6 +6,5 @@
 //
 
 struct CreateUserModel: Encodable {
-    let title: String
-    let body: String
+    let user_id: String
 }

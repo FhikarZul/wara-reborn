@@ -77,7 +77,7 @@ struct HighlightView: View {
                         .buttonStyle(PrimaryButtonStyle(
                             backgroundColor: .white,
                             hasBorder: true,
-                            borderColor: .blue,
+                            borderColor: .blue
                         ))
                         
                         Button("Check Ingredient") {

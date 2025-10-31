@@ -35,19 +35,7 @@ class ContentViewModel: ObservableObject {
     }
     
     func handleCreatePost() {
-        let newPostPayload = CreateUserModel(
-            title: "SwiftUI Alamofire Post",
-            body: "Mengirim Model sebagai body request."
-        )
-        
-        userRemoteSource.createUser(payload: newPostPayload) { [weak self] result in
-            switch result {
-            case .success(let createdPost):
-                print("Post berhasil dibuat: \(createdPost.id) - \(createdPost.title)")
-            case .failure(let error):
-                self?.errorMessage = error.localizedDescription
-                print("Gagal membuat post: \(error)")
-            }
-        }
+        // Example now triggers app user initialization flow
+        UserManager.shared.ensureUserInitialized()
     }
 }

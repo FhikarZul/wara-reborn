@@ -16,6 +16,8 @@ class HttpClient {
             url: String,
             method: HTTPMethod = .get,
             parameters: P? = nil,
+            includeUserHeader: Bool = true,
+            extraHeaders: HTTPHeaders? = nil,
             completion: @escaping (Result<T, NetworkError>) -> Void
         ) {
             
@@ -33,10 +35,20 @@ class HttpClient {
                 }
             }
             
+            var headers = extraHeaders ?? HTTPHeaders()
+            headers.add(name: "Content-Type", value: "application/json")
+
+            if includeUserHeader,
+               let userId = UserDefaults.standard.string(forKey: "userId"),
+               !userId.isEmpty {
+                headers.add(name: "X-User-ID", value: userId)
+            }
+
             AF.request(url,
                        method: method,
                        parameters: alamofireParameters,
-                       encoding: JSONEncoding.default)
+                       encoding: JSONEncoding.default,
+                       headers: headers)
                 .validate()
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
