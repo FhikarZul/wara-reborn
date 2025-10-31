@@ -12,6 +12,8 @@ struct ScanResultView: View {
     
     let productType: ProductType = .SAFE_TO_CONSUME
     
+    @State private var showSheet = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0){
@@ -77,7 +79,7 @@ struct ScanResultView: View {
                                     .multilineTextAlignment(.center)
                                 
                                 Button("Share to Wara") {
-                                    
+                                    showSheet.toggle()
                                 }
                                 .buttonStyle(PrimaryButtonStyle(
                                     backgroundColor: Color("primaryblue")
@@ -221,7 +223,9 @@ struct ScanResultView: View {
                     .padding(.horizontal, 16)
                 }
             }
-            
+            .sheet(isPresented: $showSheet) {
+                BottomSheetContributeView(isPresented: $showSheet)
+            }
         }
     }
 }
