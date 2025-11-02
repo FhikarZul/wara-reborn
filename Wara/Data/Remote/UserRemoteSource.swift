@@ -51,7 +51,7 @@ class UserRemoteSource {
     struct EmptyObjectDTO: Decodable {}
 
     /// Create user in backend. No X-User-ID header, only body { user_id }
-    func createUser(payload: CreateUserModel, completion: @escaping (Result<Void, NetworkError>) -> Void) {
+    func createUser(payload: CreateUserReqModel, completion: @escaping (Result<Void, NetworkError>) -> Void) {
         let url = "\(baseURL)/users"
         httpClient.request(url: url,
                            method: .post,

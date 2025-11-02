@@ -20,7 +20,7 @@ final class UserManager {
         }
 
         let newId = UUIDv7.generate()
-        let payload = CreateUserModel(user_id: newId)
+        let payload = CreateUserReqModel(userId: newId)
 
         UserRemoteSource.shared.createUser(payload: payload) { result in
             switch result {
