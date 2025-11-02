@@ -62,7 +62,7 @@ struct SubmitProductView: View {
             }
             .padding()
             
-            CardView(backgroundColor: .white){
+            CardView(backgroundColor: .white, width: .infinity){
                 VStack{
                     HStack{
                         Image("slider1")
@@ -123,7 +123,7 @@ struct SubmitProductView: View {
                     .padding(24)
                     .frame(maxWidth: .infinity, alignment: .leading)
             
-            CardView(backgroundColor: .white, aligment: .leading){
+            CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
                 VStack(alignment: .leading, spacing: 12){
                     Text("Data Sharing Notice :")
                         .font(.system(size: 16, weight: .semibold))

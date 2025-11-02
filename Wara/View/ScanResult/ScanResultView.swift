@@ -23,7 +23,7 @@ struct ScanResultView: View {
                 )
                 
                 ScrollView{
-                    CardView(backgroundColor: .white){
+                    CardView(backgroundColor: .white, width: .infinity){
                         VStack{
                             ImageCarouselView(
                                 isHalalKMF: true,
@@ -42,11 +42,10 @@ struct ScanResultView: View {
                             ResultInfoCard(productType: productType)
                         }
                     }
-                    .frame(width: .infinity)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
-                    CardView(backgroundColor: .white, aligment: .leading){
+                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
                         if(productType == ProductType.HALAL){
                             VStack(alignment: .leading, spacing: 12){
                                 Text("Certificate No :")
@@ -100,12 +99,11 @@ struct ScanResultView: View {
                             }
                         }
                     }
-                    .frame(width: .infinity)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
                     // Ingredient
-                    CardView(backgroundColor: .white){
+                    CardView(backgroundColor: .white, width: .infinity){
                         VStack(alignment: .leading, spacing: 12){
                             Text("Ingredient :")
                                 .font(.system(size: 16, weight: .semibold))
@@ -125,50 +123,48 @@ struct ScanResultView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .frame(width: .infinity)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
                     // More Information
-                    CardView(backgroundColor: .white, aligment: .leading){
+                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
                         VStack(alignment: .leading, spacing: 0){
                             Text("More information :")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.headline)
                                 .foregroundColor(.black)
                             
                             Text("Korean Name :")
-                                .font(.system(size: 14))
+                                .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.top, 8)
                             Text("과자")
-                                .font(.system(size: 14))
+                                .font(.body)
                                 .foregroundColor(.gray)
                                 
                             
                             Text("English Translation :")
-                                .font(.system(size: 14))
+                                .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.top, 8)
                             Text("Korean Snack")
-                                .font(.system(size: 14))
+                                .font(.body)
                                 .foregroundColor(.gray)
                             
                             Text("Company Name :")
-                                .font(.system(size: 14))
+                                .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.top, 8)
                             Text("롯데제과 (주)")
-                                .font(.system(size: 14))
+                                .font(.body)
                                 .foregroundColor(.gray)
                             
                         }
                     }
-                    .frame(width: .infinity)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
                     // Alternative Product
-                    CardView(backgroundColor: .white, aligment: .leading){
+                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
                         VStack(alignment: .leading){
                             Text("Alternative Product :")
                                 .font(.system(size: 16, weight: .semibold))
@@ -218,7 +214,6 @@ struct ScanResultView: View {
                             }
                         }
                     }
-                    .frame(width: .infinity)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                 }
