@@ -1,11 +1,15 @@
 // Release.xcconfig
 // Wara
-// Created by Meow on 30/10/25
+// Created by Meow on 02/11/25
 
-// Define scheme & host
+// Define scheme & host for production API
 API_SCHEME = https
 API_HOST = api.wara.web.id
 
-// (Optional) Keep API_BASE_URL if needed elsewhere
+// Construct base URL if referenced elsewhere
 SLASH = /
 API_BASE_URL = $(API_SCHEME):$(SLASH)/$(API_HOST)
+
+// Stabilize SwiftUI Previews on iPhone Simulator even under Release
+SWIFT_COMPILATION_MODE[sdk=iphonesimulator*] = singlefile
+SWIFT_OPTIMIZATION_LEVEL[sdk=iphonesimulator*] = -Onone

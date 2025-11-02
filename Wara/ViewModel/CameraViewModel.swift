@@ -36,6 +36,12 @@ class CameraViewModel: ObservableObject {
         self.ocrService = OCRService()
         self.detectionService = DetectionService(modelContext: modelContext)
         
+        // Skip camera hardware setup during SwiftUI Previews
+        if Env.isPreview {
+            self.cameraManager = nil
+            return
+        }
+
         do {
             let cameraManager = CameraManager()
             try cameraManager.setup()

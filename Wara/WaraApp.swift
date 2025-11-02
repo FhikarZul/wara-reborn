@@ -15,8 +15,10 @@ struct WaraApp: App {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
     init() {
-        // Initialize user at app launch
-        UserManager.shared.ensureUserInitialized()
+        // Initialize user at app launch (skip during SwiftUI Previews)
+        if !Env.isPreview {
+            UserManager.shared.ensureUserInitialized()
+        }
     }
 
     var body: some Scene {

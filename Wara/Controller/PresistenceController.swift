@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import OSLog
 
 @MainActor
 class PersistenceController {
@@ -32,11 +33,17 @@ class PersistenceController {
 
     /// Fungsi ini hanya akan berjalan di background dan terisolasi.
     private func forceReloadDatabaseIfNeeded(using container: ModelContainer) async {
+        // Skip heavy I/O during SwiftUI Previews to avoid PreviewShell crashes
+        if Env.isPreview {
+            os_log("[PersistenceController] Skipping DB reload in Previews", type: .info)
+            return
+        }
         // 3. Buat context khusus untuk background dari container yang diberikan
         let backgroundContext = ModelContext(container)
         
         guard let url = Bundle.main.url(forResource: "Ingredients", withExtension: "json") else {
-            fatalError("Failed to find 'Ingredients.json' in bundle.")
+            os_log("[PersistenceController] Ingredients.json not found in bundle", type: .error)
+            return
         }
 
         do {
@@ -71,7 +78,7 @@ class PersistenceController {
             print("Successfully reloaded \(dtos.count) ingredients.")
             
         } catch {
-            fatalError("Failed to reload database from JSON: \(error)")
+            os_log("[PersistenceController] Failed to reload DB from JSON: %{public}@", type: .error, String(describing: error))
         }
     }
 }

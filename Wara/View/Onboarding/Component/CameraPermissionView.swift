@@ -14,6 +14,11 @@ struct CameraPermissionView: View {
     
     // MARK: - Methods
     private func requestCameraPermission() {
+        // Skip actual permission prompt during SwiftUI Previews
+        if Env.isPreview {
+            hasCompletedOnboarding = true
+            return
+        }
         AVCaptureDevice.requestAccess(for: .video) { granted in }
         hasCompletedOnboarding = true
     }
