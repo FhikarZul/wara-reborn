@@ -1,14 +1,16 @@
-# Code Style — Typography & Font (SwiftUI)
+# IOS Project Rules
+
+## Code Style — Typography & Font (SwiftUI)
 
 This guide enforces consistent, accessible typography across the app by using SwiftUI’s built-in text styles (Dynamic Type) instead of hardcoded font sizes.
 
-## Core Principles
+### Core Principles
 
 - Use SwiftUI text styles: `.largeTitle`, `.title`, `.title2`, `.title3`, `.headline`, `.subheadline`, `.body`, `.callout`, `.footnote`, `.caption`, `.caption2`.
 - Avoid `.font(.system(size:, weight:, design:))` and any `.system(...)` variants.
 - Respect Dynamic Type for accessibility; do not lock font sizes manually.
 
-## Defaults & Hierarchy
+### Defaults & Hierarchy
 
 - Body text: `.font(.body)`.
 - Labels, short descriptions, and control text (buttons, chips, badges): default to `.font(.subheadline)`.
@@ -16,12 +18,12 @@ This guide enforces consistent, accessible typography across the app by using Sw
 - Page or large block titles: `.font(.title2)` or `.font(.title3)` as appropriate.
 - Metadata, hints, or very small text: `.font(.caption)` or `.font(.caption2)`.
 
-## Prohibited
+### Prohibited
 
 - Using `.font(.system(size: ..., weight: ..., design: ...))` for UI text styling.
 - Using `.font(.custom(...))` without a strong branding reason and design approval.
 
-## Exceptions (Require Justification)
+### Exceptions (Require Justification)
 
 - Specific branding/marketing needs that cannot be achieved with built-in text styles.
 - Special components explicitly approved by design to use particular sizes/weights.
@@ -30,7 +32,7 @@ If an exception is used:
 - Wrap custom font usage in a helper/theme (e.g., `Typography.brandHero`) to localize and audit easily.
 - Include justification in the PR along with screenshots and the impact on Dynamic Type.
 
-## Examples
+### Examples
 
 Bad (avoid):
 ```swift
@@ -53,19 +55,19 @@ Text("Long product description...")
     .font(.body)
 ```
 
-## Rationale
+### Rationale
 
 - Visual consistency: maintains a coherent typographic hierarchy across screens/components.
 - Accessibility: SwiftUI text styles automatically support Dynamic Type (user text size settings).
 - Maintainability: avoids scattered, hard-to-audit size/weight duplication.
 
-## Code Review Checklist
+### Code Review Checklist
 
 - No `.font(.system(...))` in UI components.
 - Text uses the appropriate SwiftUI text style according to hierarchy.
 - Any exceptions are wrapped in helper/theme and justified in the PR.
 
-## Audit & Migration
+### Audit & Migration
 
 - When touching SwiftUI files, replace `.system(...)` with the appropriate text style (`.body`, `.subheadline`, `.headline`, etc.).
 - For bulk audits, search for `font(.system` and plan a staged migration.
