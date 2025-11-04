@@ -9,11 +9,13 @@ import Vision
 import UIKit
 import CoreGraphics
 
+/// Error yang mungkin muncul saat menjalankan proses OCR.
 enum OCRError: Error {
     case imageProcessingFailed
     case noTextFound
 }
 
+/// Hasil pengenalan teks per bounding box dari Vision.
 struct TextRecognitionResult: Identifiable {
     let id = UUID()
     let text: String

@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 
+/// Klien HTTP berbasis Alamofire untuk request generik.
+/// Menangani header `X-User-ID` dan decoding respons otomatis.
 class HttpClient {
     static let shared = HttpClient()
     private init() {}

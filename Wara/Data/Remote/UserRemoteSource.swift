@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 
+/// Sumber data remote untuk operasi pengguna (create/fetch).
+/// Menggunakan `HttpClient` dan membaca `API_SCHEME`/`API_HOST` dari Info.plist.
 class UserRemoteSource {
     static let shared = UserRemoteSource()
     private init() {}
@@ -42,12 +44,14 @@ class UserRemoteSource {
     }
     
     // Generic envelope with optional data to handle null data in success responses
+    /// Amplop respons generik dengan flag `success` dan `message` opsional.
     struct BasicResponseDTO<T: Decodable>: Decodable {
         let success: Bool
         let message: String?
         let data: T?
     }
 
+    /// DTO kosong untuk respons sukses yang tidak memiliki payload `data`.
     struct EmptyObjectDTO: Decodable {}
 
     /// Create user in backend. No X-User-ID header, only body { user_id }

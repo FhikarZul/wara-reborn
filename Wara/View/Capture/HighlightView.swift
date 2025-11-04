@@ -103,7 +103,13 @@ struct HighlightView: View {
     }
 }
 
+/// Utilitas gambar untuk menormalkan orientasi ke `.up` agar koordinat
+/// konsisten saat menggambar overlay (bounding boxes) dan perhitungan layout.
 extension UIImage {
+    /// Mengembalikan gambar dengan orientasi `.up` dengan cara merender ulang
+    /// ke graphics context baru. Jika sudah `.up`, mengembalikan gambar asli.
+    /// Dipakai karena kamera sering menyimpan orientasi di metadata saja,
+    /// sehingga perlu normalisasi sebelum overlay.
     func correctOrientation() -> UIImage {
         guard self.imageOrientation != .up else {
             return self

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+/// Menganalisis teks OCR, mengekstrak bagian bahan, dan memetakan ke entitas `Ingredient`.
 class DetectionService {
     private let modelContext: ModelContext
     

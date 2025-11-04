@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// Utilitas untuk mendeteksi environment (SwiftUI Previews/UI tests) agar inisialisasi tertentu dapat dilewati.
 enum Env {
     /// Detects when running inside SwiftUI Previews or UI tests.
     static var isPreview: Bool {

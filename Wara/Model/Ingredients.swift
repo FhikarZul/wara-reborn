@@ -8,13 +8,15 @@
 import Foundation
 import SwiftData
 
-// Enum untuk kategori kehalalan, lebih aman dan deskriptif daripada String.
+/// Kategori kehalalan bahan.
+/// Menggunakan nilai yang konsisten dengan data JSON.
 enum IngredientCategory: String, Codable, CaseIterable {
     case aman = "aman"
     case raguRagu = "ragu-ragu"
     case tidakAman = "tidak aman"
 }
 
+/// Entitas SwiftData untuk menyimpan bahan secara lokal di perangkat.
 @Model
 final class Ingredient {
     @Attribute(.unique) var koreanName: String
@@ -32,7 +34,8 @@ final class Ingredient {
     }
 }
 
-// Struct ini HANYA untuk decoding dari JSON.
+/// DTO untuk decoding dari `Ingredients.json`.
+/// Tidak digunakan untuk penyimpanan, hanya pemetaan awal.
 struct IngredientDTO: Decodable {
     let koreanName: String
     let englishName: String

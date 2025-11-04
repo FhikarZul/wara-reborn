@@ -11,7 +11,10 @@ import SwiftUI
 import AVFoundation
 
 @MainActor
+/// ViewModel utama untuk proses pemindaian.
+/// Mengorkestrasi kamera, OCR, dan deteksi bahan serta mengelola state UI.
 class CameraViewModel: ObservableObject {
+    /// Status pemindaian dan hasil pemrosesan OCR/deteksi.
     enum ScanState {
         case idle
         case capturing
@@ -71,6 +74,13 @@ class CameraViewModel: ObservableObject {
     func processImage(_ image: UIImage) {
         scanState = .processing
         
+        // Jalankan operasi async tanpa memblok UI:
+        // - Kita memanggil fungsi async (`ocrService.extractKoreanTextWithBoxes`,
+        //   `detectionService.analyzeIngredients`) dari konteks non-async (callback kamera).
+        // - Menggunakan `Task {}` mengeksekusi pekerjaan berat di luar call stack utama,
+        //   sehingga interaksi UI tetap responsif.
+        // - ViewModel ber-`@MainActor`, jadi pembaruan state seperti `self.scanState`
+        //   akan dieksekusi aman pada MainActor (actor-hopping otomatis).
         Task {
             if cameraManager != nil {
                 cameraManager!.stopSession()

@@ -10,6 +10,7 @@ import SwiftData
 import OSLog
 
 @MainActor
+/// Mengelola SwiftData `ModelContainer` dan memuat ulang database dari `Ingredients.json` bila diperlukan.
 class PersistenceController {
     static let shared = PersistenceController()
 

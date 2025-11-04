@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Amplop respons generik dengan properti `data` sesuai schema backend.
+/// Gunakan untuk membungkus payload utama saat decoding.
 struct ResponseDTO<T: Decodable>: Decodable {
     let data: T
 }
@@ -15,7 +17,8 @@ struct CategoriesPayloadDTO: Decodable {
     let items: [CategoryItemDTO]
 }
 
-// Item kategori sesuai field backend
+/// DTO item kategori sesuai field backend.
+/// Mencakup id, relasi parent, nama Korea/Inggris, dan level hierarki.
 struct CategoryItemDTO: Decodable {
     let id: String
     let parentId: String?
@@ -34,6 +37,9 @@ struct CategoryItemDTO: Decodable {
     }
 }
 
+/// Sumber data remote untuk mengambil daftar kategori produk.
+/// Membaca konfigurasi `API_SCHEME` dan `API_HOST` dari Info.plist, lalu
+/// memanggil endpoint `GET /products/categories` menggunakan `HttpClient`.
 class CategoryRemoteSource {
     static let shared = CategoryRemoteSource()
     private init() {}
@@ -41,15 +47,16 @@ class CategoryRemoteSource {
     private let httpClient = HttpClient.shared
 
     private var baseURL: String {
+        // Ambil scheme & host dari Info.plist yang dipetakan via xcconfig
         let schemeRaw = (Bundle.main.object(forInfoDictionaryKey: "API_SCHEME") as? String) ?? ""
         let hostRaw = (Bundle.main.object(forInfoDictionaryKey: "API_HOST") as? String) ?? ""
         let scheme = schemeRaw.trimmingCharacters(in: .whitespacesAndNewlines)
         let hostVal = hostRaw.trimmingCharacters(in: .whitespacesAndNewlines)
-        precondition(!scheme.isEmpty, "API_SCHEME missing. Set via xcconfig and map to target configuration.")
+        precondition(!scheme.isEmpty, "API_SCHEME  missing. Set via xcconfig and map to target configuration.")
         precondition(!hostVal.isEmpty, "API_HOST missing. Set via xcconfig and map to target configuration.")
         precondition(scheme == "http" || scheme == "https", "API_SCHEME must be 'http' or 'https'.")
 
-        // Parse optional port if provided in host (e.g., localhost:4041)
+        // Opsional: parse port jika host menyertakan (contoh: localhost:4041)
         var host = hostVal
         var port: Int? = nil
         if let colonIndex = host.firstIndex(of: ":") {
@@ -59,6 +66,7 @@ class CategoryRemoteSource {
             if let p = Int(portStr) { port = p }
         }
 
+        // Rakit URL dasar dari komponen
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
@@ -69,16 +77,19 @@ class CategoryRemoteSource {
         return url.absoluteString
     }
 
-    // Flatten hasil ke array items agar mudah dipakai layer di atasnya
+    /// Mengambil kategori dan mengembalikan array item yang sudah di-flatten.
     func fetchCategories(completion: @escaping (Result<[CategoryItemDTO], NetworkError>) -> Void) {
+        // Bentuk URL endpoint dari base URL
         let url = "\(baseURL)/products/categories"
 
+        // Panggil request GET tanpa parameter. Gunakan tipe generik untuk decoding.
         httpClient.request(url: url,
                            method: .get,
                            parameters: nil as String?,
                            completion: { (result: Result<ResponseDTO<CategoriesPayloadDTO>, NetworkError>) in
             switch result {
             case .success(let response):
+                // Ambil payload dan teruskan ke layer pemanggil
                 completion(.success(response.data.items))
             case .failure(let error):
                 completion(.failure(error))

@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Mengelola lifecycle `userId` di perangkat.
+/// Membuat user di backend saat pertama kali launch lalu menyimpan ke `UserDefaults`.
 final class UserManager {
     static let shared = UserManager()
     private init() {}

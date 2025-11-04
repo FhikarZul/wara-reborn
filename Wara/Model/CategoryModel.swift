@@ -6,6 +6,8 @@
 //
 import SwiftUI
 
+/// Model kategori untuk tampilan list kategori.
+/// Menyimpan nama kategori dan ikon yang ditampilkan di UI.
 struct CategoryModel: Identifiable {
     let id = UUID()
     let name: String
