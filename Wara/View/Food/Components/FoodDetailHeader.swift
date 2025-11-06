@@ -20,7 +20,7 @@ struct FoodDetailHeader: View {
                 LinearGradient(
                     gradient: Gradient(colors: [
                         backgroundColor,
-                        Color.white
+                        Color("surface")
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
@@ -43,6 +43,7 @@ struct FoodDetailHeader: View {
                         
                         Text(title)
                             .font(.headline)
+                            .foregroundColor(.primary)
                             .padding(.trailing, 40)
                         
                         
@@ -52,7 +53,7 @@ struct FoodDetailHeader: View {
                     HStack{
                         Text(description)
                             .font(.subheadline)
-                            .foregroundColor(.black.opacity(0.7))
+                            .foregroundColor(.primary)
                             .fixedSize(horizontal: false, vertical: true)
                         
                         Spacer()

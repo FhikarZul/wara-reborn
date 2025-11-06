@@ -117,7 +117,7 @@ struct FoodDetailView: View {
             
             Spacer()
         }
-        .background(Color.green.opacity(0.1))
+        .background(Color("background"))
         .ignoresSafeArea(edges: .top)
         .navigationBarBackButtonHidden(true)
     }

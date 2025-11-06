@@ -46,7 +46,7 @@ struct SliderView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.name)
                                         .font(.title3)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.primary)
                                 }
                                 Spacer()
                                 if let url = item.iconURL {

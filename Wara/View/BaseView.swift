@@ -36,6 +36,7 @@ struct BaseView: View {
                     .tag(2)
             }
             .accentColor(Color("primaryblue"))
+            .background(Color("background"))
             .onChange(of: selectedTab) {
                 if selectedTab == 1 {
                     showCamera = true

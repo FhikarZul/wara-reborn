@@ -16,11 +16,13 @@ struct FoodView: View {
                 HStack{
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Korean Food\nScanner")
-                            .font(.system(size: 18, weight: .bold))
+                            .font(.body.bold())
+                            .foregroundColor(.primary)
                            
 
                         Text("See what your fellow Chingu recommend")
-                            .font(.system(size: 13))
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
                     }
                     .padding(.top, 20)
                     
@@ -33,7 +35,7 @@ struct FoodView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .background(Color("cardBackground"))
                 .cornerRadius(12)
                 .padding(.horizontal, 16)
                 .padding(.top, -50)
@@ -44,7 +46,7 @@ struct FoodView: View {
                 
                 Spacer()
             }
-            .background(Color.green.opacity(0.1))
+            .background(Color("background"))
         }
         .scrollIndicators(.hidden)
         .ignoresSafeArea(edges: .top)
