@@ -18,6 +18,7 @@ struct CategoryItemDTO: Decodable {
     let level: Int
     let appCategoryIconURL: String?
     let appCategoryBannerTitle: String
+    let appCategoryDescription: String
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -28,5 +29,6 @@ struct CategoryItemDTO: Decodable {
         case level
         case appCategoryIconURL = "app_category_icon_url"
         case appCategoryBannerTitle = "app_category_banner_title"
+        case appCategoryDescription = "app_category_description"
     }
 }

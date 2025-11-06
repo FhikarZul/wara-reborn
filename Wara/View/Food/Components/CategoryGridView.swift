@@ -43,7 +43,13 @@ struct CategoryGridView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(viewModel.categories) { category in
                     NavigationLink{
-                        FoodDetailView(id: category.id.uuidString, title: category.name)
+                        FoodDetailView(
+                            id: category.id.uuidString,
+                            title: category.name,
+                            description: category.description,
+                            iconURL: category.iconURL,
+                            headerBackgroundColor: Color("sliderGreen")
+                        )
                     } label: {
                         VStack(alignment: .center, spacing: 6) {
                             ZStack {

@@ -33,42 +33,52 @@ struct SliderView: View {
                         .tag(0)
                 } else {
                     ForEach(Array(viewModel.items.enumerated()), id: \.offset) { index, item in
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(item.name)
-                                    .font(.title3)
-                                    .foregroundColor(.black)
-                            }
-                            Spacer()
-                            if let url = item.iconURL {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                    case .failure:
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
-                                    @unknown default:
-                                        EmptyView()
-                                    }
+                        NavigationLink {
+                            FoodDetailView(
+                                id: item.id.uuidString,
+                                title: item.name,
+                                description: item.description,
+                                iconURL: item.iconURL,
+                                headerBackgroundColor: Color("sliderYellow")
+                            )
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(item.name)
+                                        .font(.title3)
+                                        .foregroundColor(.black)
                                 }
-                                .frame(width: 90, height: 90)
-                            } else {
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
+                                Spacer()
+                                if let url = item.iconURL {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                        case .failure:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                        @unknown default:
+                                            EmptyView()
+                                        }
+                                    }
                                     .frame(width: 90, height: 90)
+                                } else {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 90, height: 90)
+                                }
                             }
+                            .padding(.top, 50)
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, maxHeight: 180)
+                            .background(Color("sliderYellow"))
                         }
-                        .padding(.top, 50)
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, maxHeight: 180)
-                        .background(Color("sliderYellow"))
                         .tag(index)
                     }
                 }

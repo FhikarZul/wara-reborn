@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct FoodDetailHeader: View {
-    let title: String;
-    let description: String;
+    let title: String
+    let description: String
+    let iconURL: URL?
+    let backgroundColor: Color
     
     @Environment(\.dismiss) private var dismiss
     
@@ -17,7 +19,7 @@ struct FoodDetailHeader: View {
             ZStack(alignment: .topLeading) {
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color(red: 1.0, green: 0.91, blue: 0.51),
+                        backgroundColor,
                         Color.white
                     ]),
                     startPoint: .top,
@@ -55,10 +57,33 @@ struct FoodDetailHeader: View {
                         
                         Spacer()
                         
-                        Image("slider1")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 90, height: 90)
+                        Group {
+                            if let url = iconURL {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                    case .failure:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(.gray)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                            } else {
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .frame(width: 90, height: 90)
                     }
 
                     Spacer()
@@ -72,6 +97,9 @@ struct FoodDetailHeader: View {
 
 #Preview {
     FoodDetailHeader(
-        title: "Food Souvenirs", description: "Taste what locals love! Curated Korean food you can enjoy with confidence."
+        title: "Food Souvenirs",
+        description: "Taste what locals love! Curated Korean food you can enjoy with confidence.",
+        iconURL: nil,
+        backgroundColor: Color("sliderYellow")
     )
 }

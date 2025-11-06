@@ -10,6 +10,23 @@ import SwiftUI
 struct FoodDetailView: View {
     let id: String
     let title: String
+    let description: String
+    let iconURL: URL?
+    let headerBackgroundColor: Color
+
+    init(
+        id: String,
+        title: String,
+        description: String? = nil,
+        iconURL: URL? = nil,
+        headerBackgroundColor: Color? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description ?? "Taste what locals love! Curated Korean food you can enjoy with confidence."
+        self.iconURL = iconURL
+        self.headerBackgroundColor = headerBackgroundColor ?? Color("sliderYellow")
+    }
     
     @State private var searchText = ""
     let columns = [
@@ -21,7 +38,9 @@ struct FoodDetailView: View {
         VStack{
             FoodDetailHeader(
                 title: title,
-                description: "Taste what locals love! Curated Korean food you can enjoy with confidence."
+                description: description,
+                iconURL: iconURL,
+                backgroundColor: headerBackgroundColor
             )
             .frame(maxWidth: .infinity)
             

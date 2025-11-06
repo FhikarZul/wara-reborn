@@ -30,7 +30,8 @@ final class RecommendationViewModel: ObservableObject {
                     self.items = dtos.map { dto in
                         Category(
                             name: dto.appCategoryBannerTitle,
-                            iconURL: URL(string: dto.appCategoryIconURL ?? "")
+                            iconURL: URL(string: dto.appCategoryIconURL ?? ""),
+                            description: dto.appCategoryDescription
                         )
                     }
                     self.logger.info("[Recommendation] mapped items=\(self.items.count)")

@@ -12,4 +12,5 @@ struct Category: Identifiable {
     let id = UUID()
     let name: String
     let iconURL: URL?
+    let description: String
 }
