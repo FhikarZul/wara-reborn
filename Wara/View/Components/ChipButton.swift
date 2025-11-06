@@ -16,13 +16,13 @@ struct ChipButton: View {
         Button(action: action) {
             Text(label)
                 .font(.subheadline)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
                 .padding(.all, 10)
                 .padding(.horizontal, 4)
-                .background(isSelected ? Color("green2") : .white)
+                .background(isSelected ? Color("green1") : Color("chipBackground"))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color("green2"), lineWidth: 3)
+                        .stroke(Color("green1"), lineWidth: 4)
                 )
                 .cornerRadius(20)
         }
