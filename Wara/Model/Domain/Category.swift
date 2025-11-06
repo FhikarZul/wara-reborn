@@ -11,5 +11,5 @@ import SwiftUI
 struct Category: Identifiable {
     let id = UUID()
     let name: String
-    let icon: String
+    let iconURL: URL?
 }

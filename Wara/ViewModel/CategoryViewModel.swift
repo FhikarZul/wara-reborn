@@ -26,8 +26,9 @@ class CategoryViewModel: ObservableObject {
             switch result {
             case .success(let dtos):
                 self.categories = dtos.map { dto in
-                    // Tampilkan englishName pada grid; ikon placeholder
-                    Category(name: dto.englishName, icon: "photo")
+                    // Gunakan englishName sebagai judul dan app_category_icon_url untuk ikon
+                    let url = dto.appCategoryIconURL.flatMap { URL(string: $0) }
+                    return Category(name: dto.englishName, iconURL: url)
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

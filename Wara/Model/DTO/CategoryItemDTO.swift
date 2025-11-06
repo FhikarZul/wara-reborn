@@ -16,6 +16,7 @@ struct CategoryItemDTO: Decodable {
     let koreanPronunciation: String
     let englishName: String
     let level: Int
+    let appCategoryIconURL: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,5 +25,6 @@ struct CategoryItemDTO: Decodable {
         case koreanPronunciation = "korean_pronunciation"
         case englishName = "english_name"
         case level
+        case appCategoryIconURL = "app_category_icon_url"
     }
 }

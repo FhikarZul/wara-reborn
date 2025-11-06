@@ -151,7 +151,7 @@ struct ApiResponseDTO<T: Decodable>: Decodable {}
 - Search patterns:
   - `struct .*Model` for legacy model suffixes
   - `struct .*DTO` to audit DTO naming consistency
- - Perform staged renames to minimize disruption; update imports and references accordingly.
+  - Perform staged renames to minimize disruption; update imports and references accordingly.
 
 ## Tooling — MCP and XcodeBuildMCP
 

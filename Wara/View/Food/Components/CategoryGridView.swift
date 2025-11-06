@@ -47,16 +47,38 @@ struct CategoryGridView: View {
                     } label: {
                         VStack(alignment: .center, spacing: 6) {
                             ZStack {
-                                Color(.systemGray5)
-                                    .frame(width: 80, height: 80)
-                                    .cornerRadius(16)
-                                
-                                Image(systemName: category.icon)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 36, height: 36)
-                                    .foregroundColor(.gray)
+                                if let url = category.iconURL {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(width: 36, height: 36)
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 72, height: 72)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                        case .failure:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 36, height: 36)
+                                                .foregroundColor(.gray)
+                                        @unknown default:
+                                            EmptyView()
+                                        }
+                                    }
+                                } else {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 36, height: 36)
+                                        .foregroundColor(.gray)
+                                }
                             }
+                            .frame(width: 80, height: 80)
+                            .cornerRadius(16)
                             
                             Text(category.name)
                                 .font(.subheadline)
