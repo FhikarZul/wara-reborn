@@ -57,35 +57,6 @@ struct CaptureView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 16)
-                    
-                    HStack(alignment: .center) {
-                        if viewModel.isIngredientLabelDectected {
-                            Image(systemName: "checkmark.circle.fill")
-                        }
-
-                        Text(
-                            viewModel.isIngredientLabelDectected
-                            ? "Label komposisi ditemukan"
-                            : "Yuk, pindai label komposisi"
-                        )
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(
-                        viewModel.isIngredientLabelDectected ? .green : .white
-                    )
-                    .background(.black.opacity(0.6))
-                    .clipShape(.capsule)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .transition(.scale)
-                    .id(
-                        "detectionStatusText_"
-                        + (viewModel.isIngredientLabelDectected
-                           ? "detected" : "scanning")
-                    )
                 }
                 .frame(maxWidth: .infinity, maxHeight: 80)
                 
@@ -96,6 +67,49 @@ struct CaptureView: View {
                 }
                 
                 Spacer()
+
+                // Detection status near capture controls
+                HStack(alignment: .center, spacing: 8) {
+                    if viewModel.isIngredientLabelDectected {
+                        ZStack {
+                            Circle()
+                                .fill(Color.black)
+                                .frame(width: 24, height: 24)
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color.green)
+                        }
+                    } else {
+                        ZStack {
+                            Circle()
+                                .fill(Color.black)
+                                .frame(width: 24, height: 24)
+                            Image(systemName: "exclamationmark")
+                                .font(.caption.bold())
+                                .foregroundColor(Color.yellow)
+                        }
+                    }
+
+                    Text(
+                        viewModel.isIngredientLabelDectected
+                        ? "Ingredient Label Detected"
+                        : "Please Find Ingredient Label"
+                    )
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .foregroundColor(.black)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .background(viewModel.isIngredientLabelDectected ? Color.green : Color.yellow)
+                .clipShape(.capsule)
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .transition(.scale)
+                .id(
+                    "detectionStatusText_"
+                    + (viewModel.isIngredientLabelDectected
+                       ? "detected" : "scanning")
+                )
                 
                 HStack(alignment: .center, spacing: 60) {
                     // Tombol Impor Galeri
