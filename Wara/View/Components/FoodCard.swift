@@ -81,39 +81,39 @@ struct FoodCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 
                 Text(subtitle)
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.primary)
                 
                 // Label
                 HStack(spacing: 4) {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color("green1"))
+                        .foregroundColor(Color("green2"))
                         .font(.caption)
                     Text(label)
                         .font(.caption)
-                        .foregroundColor(Color("green1"))
+                        .foregroundColor(Color("green2"))
                 }
                 
                 // Likes count
                 HStack(spacing: 4) {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.gray)
+                    Image(systemName: "heart")
+                        .foregroundColor(.primary)
                         .font(.caption)
                     Text("\(likes)")
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.primary)
                 }
             }
             .padding(.horizontal, 8)
             .padding(.bottom, 8)
         }
-        .background(Color.white)
+        .background(Color("chipBackground"))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color("green2").opacity(0.4), lineWidth: 2)
+                .stroke(Color("green2").opacity(0.4), lineWidth: 6)
         )
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)

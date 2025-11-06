@@ -13,7 +13,8 @@ struct FavoriteView: View {
     var body: some View {
             VStack(spacing: 0) {
                 Text("Favorite")
-                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.primary)
+                    .font(.body.bold())
                     .padding(.top, 12)
                 
                 CustomSegmentedControl(selectedTab: $selectedTab)
@@ -35,7 +36,7 @@ struct FavoriteView: View {
 
                 Spacer()
             }
-            .background(Color.white.ignoresSafeArea())
+            .background(Color("background").ignoresSafeArea())
         }
 }
 

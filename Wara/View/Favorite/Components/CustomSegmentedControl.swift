@@ -24,13 +24,13 @@ struct CustomSegmentedControl: View {
                     }
                 }) {
                     Text(tab.rawValue)
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(selectedTab == tab ? .black : .gray)
+                        .font(.body)
+                        .foregroundColor(selectedTab == tab ? .primary : .gray)
                         .frame(maxWidth: .infinity, maxHeight: 30)
                         .background(
                             Group {
                                 if selectedTab == tab {
-                                        Color("green2")
+                                        Color("green1")
                                 } else {
                                         Color.clear
                                 }
@@ -41,7 +41,7 @@ struct CustomSegmentedControl: View {
             }
         }
         .padding(4)
-        .background(Color(.systemGray6))
+        .background(Color("chipBackground"))
         .clipShape(Capsule())
         .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 1)
     }
