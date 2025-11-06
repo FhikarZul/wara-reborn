@@ -7,36 +7,6 @@
 
 import Foundation
 
-/// Amplop respons generik dengan properti `data` sesuai schema backend.
-/// Gunakan untuk membungkus payload utama saat decoding.
-struct ResponseDTO<T: Decodable>: Decodable {
-    let data: T
-}
-
-struct CategoriesPayloadDTO: Decodable {
-    let items: [CategoryItemDTO]
-}
-
-/// DTO item kategori sesuai field backend.
-/// Mencakup id, relasi parent, nama Korea/Inggris, dan level hierarki.
-struct CategoryItemDTO: Decodable {
-    let id: String
-    let parentId: String?
-    let koreanName: String
-    let koreanPronunciation: String
-    let englishName: String
-    let level: Int
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case parentId = "parent_id"
-        case koreanName = "korean_name"
-        case koreanPronunciation = "korean_pronunciation"
-        case englishName = "english_name"
-        case level
-    }
-}
-
 /// Sumber data remote untuk mengambil daftar kategori produk.
 /// Membaca konfigurasi `API_SCHEME` dan `API_HOST` dari Info.plist, lalu
 /// memanggil endpoint `GET /products/categories` menggunakan `HttpClient`.
@@ -83,14 +53,17 @@ class CategoryRemoteSource {
         let url = "\(baseURL)/products/categories"
 
         // Panggil request GET tanpa parameter. Gunakan tipe generik untuk decoding.
-        httpClient.request(url: url,
-                           method: .get,
-                           parameters: nil as String?,
-                           completion: { (result: Result<ResponseDTO<CategoriesPayloadDTO>, NetworkError>) in
+    httpClient.request(url: url,
+                       method: .get,
+                       parameters: nil as String?,
+                       completion: { (result: Result<ApiResponseDTO<CategoriesPayloadDTO>, NetworkError>) in
             switch result {
-            case .success(let response):
-                // Ambil payload dan teruskan ke layer pemanggil
-                completion(.success(response.data.items))
+            case .success(let envelope):
+                if let payload = envelope.data {
+                    completion(.success(payload.items))
+                } else {
+                    completion(.failure(.custom("Empty payload")))
+                }
             case .failure(let error):
                 completion(.failure(error))
             }

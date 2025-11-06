@@ -15,16 +15,7 @@ enum OCRError: Error {
     case noTextFound
 }
 
-/// Hasil pengenalan teks per bounding box dari Vision.
-struct TextRecognitionResult: Identifiable {
-    let id = UUID()
-    let text: String
-    let boundingBox: CGRect
-    let topLeft: CGPoint
-    let topRight: CGPoint
-    let bottomLeft: CGPoint
-    let bottomRight: CGPoint
-}
+// Hasil pengenalan teks dipindahkan ke Model/Domain/TextRecognitionResult.swift
 
 class OCRService {
     func extractKoreanText(from image: UIImage) async throws -> String {

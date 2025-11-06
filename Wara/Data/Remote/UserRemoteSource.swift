@@ -43,28 +43,19 @@ class UserRemoteSource {
         return url.absoluteString
     }
     
-    // Generic envelope with optional data to handle null data in success responses
-    /// Amplop respons generik dengan flag `success` dan `message` opsional.
-    struct BasicResponseDTO<T: Decodable>: Decodable {
-        let success: Bool
-        let message: String?
-        let data: T?
-    }
-
-    /// DTO kosong untuk respons sukses yang tidak memiliki payload `data`.
-    struct EmptyObjectDTO: Decodable {}
+    // Respons memakai ApiResponseDTO<T> dan EmptyDTO yang disatukan di Model/DTO
 
     /// Create user in backend. No X-User-ID header, only body { user_id }
-    func createUser(payload: CreateUserReqModel, completion: @escaping (Result<Void, NetworkError>) -> Void) {
+    func createUser(payload: CreateUserRequestDTO, completion: @escaping (Result<Void, NetworkError>) -> Void) {
         let url = "\(baseURL)/users"
         httpClient.request(url: url,
                            method: .post,
                            parameters: payload,
                            includeUserHeader: false,
-                           completion: { (result: Result<BasicResponseDTO<EmptyObjectDTO>, NetworkError>) in
+                           completion: { (result: Result<ApiResponseDTO<EmptyDTO>, NetworkError>) in
             switch result {
             case .success(let envelope):
-                if envelope.success {
+                if envelope.success == true {
                     completion(.success(()))
                 } else {
                     completion(.failure(.custom(envelope.message ?? "Unknown error")))
@@ -76,7 +67,7 @@ class UserRemoteSource {
     }
 
     // Example-only: keep a fetch method using JSONPlaceholder to avoid breaking samples
-    func fetchUsers(completion: @escaping (Result<[UserModel], NetworkError>) -> Void) {
+    func fetchUsers(completion: @escaping (Result<[User], NetworkError>) -> Void) {
         let url = "https://jsonplaceholder.typicode.com/posts"
         httpClient.request(url: url,
                            method: .get,

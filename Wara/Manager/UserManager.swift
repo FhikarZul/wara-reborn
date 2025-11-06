@@ -22,7 +22,7 @@ final class UserManager {
         }
 
         let newId = UUIDv7.generate()
-        let payload = CreateUserReqModel(userId: newId)
+        let payload = CreateUserRequestDTO(userId: newId)
 
         UserRemoteSource.shared.createUser(payload: payload) { result in
             switch result {

@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class CategoryViewModel: ObservableObject {
-    @Published var categories: [CategoryModel] = []
+    @Published var categories: [Category] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
 
@@ -27,7 +27,7 @@ class CategoryViewModel: ObservableObject {
             case .success(let dtos):
                 self.categories = dtos.map { dto in
                     // Tampilkan englishName pada grid; ikon placeholder
-                    CategoryModel(name: dto.englishName, icon: "photo")
+                    Category(name: dto.englishName, icon: "photo")
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

@@ -10,7 +10,7 @@ import SwiftUI
 
 @MainActor
 class ContentViewModel: ObservableObject {
-    @Published var posts: [UserModel] = []
+    @Published var posts: [User] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
