@@ -137,7 +137,7 @@ struct ScanResultView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.primary)
                                 .padding(.top, 8)
-                            Text("과자")
+                            Text("과자 (chok-seu-tik)")
                                 .font(.body)
                                 .foregroundColor(.primary)
                                 
@@ -155,6 +155,9 @@ struct ScanResultView: View {
                                 .foregroundColor(.primary)
                                 .padding(.top, 8)
                             Text("롯데제과 (주)")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                            Text("(Lotte Snack Co., Ltd.)")
                                 .font(.body)
                                 .foregroundColor(.primary)
                             
