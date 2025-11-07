@@ -17,7 +17,7 @@ struct ImageCarouselView: View {
         ZStack {
             // Background card
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemGray6))
+                .fill(.white)
                 .frame(width: 288, height: 276)
             
             VStack(spacing: 12) {
@@ -39,7 +39,7 @@ struct ImageCarouselView: View {
                     .padding(.horizontal, 12)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.black.opacity(0.1))
+                            .fill(.gray.opacity(0.5))
                     )
                     .padding(.bottom, 8)
             }

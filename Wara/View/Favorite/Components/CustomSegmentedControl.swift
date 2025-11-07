@@ -24,13 +24,13 @@ struct CustomSegmentedControl: View {
                     }
                 }) {
                     Text(tab.rawValue)
-                        .font(.body)
+                        .font(.body.weight(.semibold))
                         .foregroundColor(selectedTab == tab ? .primary : .gray)
                         .frame(maxWidth: .infinity, maxHeight: 30)
                         .background(
                             Group {
                                 if selectedTab == tab {
-                                        Color("green1")
+                                    Color("green2")
                                 } else {
                                         Color.clear
                                 }

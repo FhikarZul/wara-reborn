@@ -23,7 +23,7 @@ struct ScanResultView: View {
                 )
                 
                 ScrollView{
-                    CardView(backgroundColor: .white, width: .infinity){
+                    CardView(backgroundColor: Color("chipBackground"), width: .infinity){
                         VStack{
                             ImageCarouselView(
                                 isHalalKMF: true,
@@ -31,13 +31,13 @@ struct ScanResultView: View {
                             )
                             
                             Text("Korean Snack")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .font(.body.weight(.semibold))
+                                .foregroundColor(.primary)
                                 .padding(.top, 10)
                             
                             Text("Gwa-ja")
-                                .font(.system(size: 14))
-                                .foregroundColor(.gray)
+                                .font(.body)
+                                .foregroundColor(.primary)
                             
                             ResultInfoCard(productType: productType)
                         }
@@ -45,7 +45,7 @@ struct ScanResultView: View {
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
-                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
+                    CardView(backgroundColor: Color("chipBackground"), aligment: .leading, width: .infinity){
                         if(productType == ProductType.HALAL){
                             VStack(alignment: .leading, spacing: 12){
                                 Text("Certificate No :")
@@ -69,12 +69,12 @@ struct ScanResultView: View {
                         if(productType == ProductType.SAFE_TO_CONSUME){
                             VStack(alignment: .center, spacing: 12){
                                 Text("Looks like this product’s new to us! ")
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .font(.body.weight(.semibold))
+                                    .foregroundColor(.primary)
                                 
                                 Text("Sharing this product to Wara, Your contribution help others find safer food choices that align with halal principles.")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
                                     .multilineTextAlignment(.center)
                                 
                                 Button("Share to Wara") {
@@ -103,60 +103,60 @@ struct ScanResultView: View {
                     .padding(.horizontal, 16)
                     
                     // Ingredient
-                    CardView(backgroundColor: .white, width: .infinity){
+                    CardView(backgroundColor: Color("chipBackground"), width: .infinity){
                         VStack(alignment: .leading, spacing: 12){
                             Text("Ingredient :")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .font(.body.weight(.semibold))
+                                .foregroundColor(.primary)
                             
                             Text("Wheat flour , sugar, shortening (palm oil: Malaysia), corn starch (imported: Russia, Hungary, Serbia), vegetable cream, ammonium bicarbonate, sodium bicarbonate], Semi-chocolate I [Processed fat I (hydrogenated palm kernel oil: Malaysia), sugar")
-                                .font(.system(size: 14))
-                                .foregroundColor(.gray)
+                                .font(.caption)
+                                .foregroundColor(.primary)
                             
                             Text("Manufactured with same Facility :")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .font(.body.weight(.semibold))
+                                .foregroundColor(.primary)
                                 .padding(.top, 8)
                             
                             Text("Flour, Milk, egg")
                                 .font(.system(size: 14))
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                         }
                     }
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     
                     // More Information
-                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
+                    CardView(backgroundColor: Color("chipBackground"), aligment: .leading, width: .infinity){
                         VStack(alignment: .leading, spacing: 0){
                             Text("More information :")
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.primary)
                             
                             Text("Korean Name :")
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                                 .padding(.top, 8)
                             Text("과자")
                                 .font(.body)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                                 
                             
                             Text("English Translation :")
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                                 .padding(.top, 8)
                             Text("Korean Snack")
                                 .font(.body)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                             
                             Text("Company Name :")
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                                 .padding(.top, 8)
                             Text("롯데제과 (주)")
                                 .font(.body)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                             
                         }
                     }
@@ -164,11 +164,11 @@ struct ScanResultView: View {
                     .padding(.horizontal, 16)
                     
                     // Alternative Product
-                    CardView(backgroundColor: .white, aligment: .leading, width: .infinity){
+                    CardView(backgroundColor: Color("chipBackground"), aligment: .leading, width: .infinity){
                         VStack(alignment: .leading){
                             Text("Alternative Product :")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .font(.body.weight(.semibold))
+                                .foregroundColor(.primary)
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {

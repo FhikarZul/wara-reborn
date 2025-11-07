@@ -19,14 +19,12 @@ struct CustomAppBar: View {
                 onBack?()
             }) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.body.weight(.bold))
                     .foregroundColor(.black)
                     .frame(width: 36, height: 36)
                     .background(
                         Circle()
                             .fill(Color.white)
-                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 1, y: 1)
-                            .shadow(color: Color.white.opacity(0.9), radius: 3, x: -1, y: -1)
                     )
             }
             
@@ -35,7 +33,7 @@ struct CustomAppBar: View {
             // Title
             Text(title)
                 .font(.headline)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
             
             Spacer()
             
@@ -50,14 +48,12 @@ struct CustomAppBar: View {
                     .background(
                         Circle()
                             .fill(Color.white)
-                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 1, y: 1)
-                            .shadow(color: Color.white.opacity(0.9), radius: 3, x: -1, y: -1)
                     )
             }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-        .background(Color.green.opacity(0.1))
+        .background(Color("surfaceCustomAppBar"))
     }
 }
 
